@@ -153,6 +153,7 @@
 <!-- WhatsApp CTA -->
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
+<!-- Script Section -->
 <script>
   function openNav() {
     document.getElementById("sidebar").style.width = "250px";
@@ -174,12 +175,12 @@
       totalOdds *= parseFloat(item.odds);
       const card = document.createElement('div');
       card.className = 'acc-card';
-      card.innerHTML = \`
-        <h3>⚽ \${item.match}</h3>
-        <span>💡 Tip: <strong>\${item.tip}</strong></span>
-        <span>🎯 Odds: \${item.odds}</span>
-        <a class="bet-button" href="\${item.link}" target="_blank">Bet Now</a>
-      \`;
+      card.innerHTML = `
+        <h3>⚽ ${item.match}</h3>
+        <span>💡 Tip: <strong>${item.tip}</strong></span>
+        <span>🎯 Odds: ${item.odds}</span>
+        <a class="bet-button" href="${item.link}" target="_blank">Bet Now</a>
+      `;
       container.appendChild(card);
     });
     totalOddsBox.innerHTML = "Total Combined Odds: " + totalOdds.toFixed(2);
