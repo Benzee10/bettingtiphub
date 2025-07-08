@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Test Predictions</title>
+  <title>Admin - Predictions</title>
   <style>
     body { background: #121212; color: white; font-family: sans-serif; padding: 20px; }
-    .btn { padding: 10px; background: #00e676; border: none; color: #111; font-weight: bold; cursor: pointer; }
+    input { width: 100%; margin: 5px 0; padding: 8px; background: #1f1f1f; border: 1px solid #444; color: white; border-radius: 5px; }
+    .btn { padding: 10px; background: #00e676; border: none; color: #111; font-weight: bold; cursor: pointer; border-radius: 5px; margin-right: 5px; }
+    .btn-danger { background: #ff5252; color: white; }
+    .entry { background: #222; padding: 10px; margin: 10px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+    .entry span { flex: 1; padding-right: 10px; word-break: break-word; }
   </style>
 </head>
 <body>
+
 <script>
   const pass = prompt("Enter password:");
   if (pass !== "letmein123") {
     alert("Wrong password");
-    window.location.href = "index.html";
+    location.href = "index.html";
   }
 </script>
 
-<h2>Predictions</h2>
-<input id="match" placeholder="Match"><br>
-<input id="time" placeholder="Time"><br>
-<input id="tip" placeholder="Tip"><br>
-<button class="btn" onclick="addPrediction()">Add</button>
+<h2>📈 Predictions</h2>
+
+<input id="match" placeholder="Match">
+<input id="time" placeholder="Kickoff Time">
+<input id="tip" placeholder="Tip">
+<button class="btn" onclick="addPrediction()">Add Prediction</button>
 
 <div id="output"></div>
 
@@ -28,24 +34,47 @@
   let predictions = JSON.parse(localStorage.getItem("predictions") || "[]");
 
   function render() {
-    document.getElementById("output").innerHTML = predictions.map(p => 
-      `<div>${p.match} - ${p.time} - ${p.tip}</div>`
-    ).join("");
+    const output = document.getElementById("output");
+    output.innerHTML = predictions.map((p, i) => `
+      <div class="entry">
+        <span>${p.match} | ${p.time} | ${p.tip}</span>
+        <button class="btn" onclick="editPrediction(${i})">Edit</button>
+        <button class="btn btn-danger" onclick="deletePrediction(${i})">Delete</button>
+      </div>
+    `).join('');
   }
 
   function addPrediction() {
     const match = document.getElementById("match").value;
     const time = document.getElementById("time").value;
     const tip = document.getElementById("tip").value;
-
-    if (!match || !time || !tip) return alert("Fill all");
+    if (!match || !time || !tip) return alert("Fill all fields");
 
     predictions.push({ match, time, tip });
     localStorage.setItem("predictions", JSON.stringify(predictions));
     render();
   }
 
+  function deletePrediction(i) {
+    predictions.splice(i, 1);
+    localStorage.setItem("predictions", JSON.stringify(predictions));
+    render();
+  }
+
+  function editPrediction(i) {
+    const p = predictions[i];
+    const match = prompt("Edit Match", p.match);
+    const time = prompt("Edit Time", p.time);
+    const tip = prompt("Edit Tip", p.tip);
+    if (match && time && tip) {
+      predictions[i] = { match, time, tip };
+      localStorage.setItem("predictions", JSON.stringify(predictions));
+      render();
+    }
+  }
+
   render();
 </script>
+
 </body>
 </html>
