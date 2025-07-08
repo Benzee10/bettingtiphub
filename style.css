@@ -1,49 +1,60 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
+  background-color: #121212;
+  color: #e0e0e0;
   padding-top: 60px;
-  background: #f4f4f4;
 }
 nav {
-  background: #333;
-  padding: 10px;
+  background: #1f1f1f;
+  padding: 15px;
   text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 nav a {
-  color: white;
-  margin: 0 10px;
+  color: #ffffff;
+  margin: 0 15px;
   text-decoration: none;
+  font-weight: 500;
 }
 h1 {
   text-align: center;
   margin-top: 10px;
+  color: #ffcc00;
 }
 .predictions .card,
 .bookmaker,
 .accumulator li,
 table {
-  background: white;
+  background: #1e1e1e;
   margin: 10px auto;
   padding: 15px;
-  max-width: 600px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 700px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.8);
+  border: 1px solid #2a2a2a;
 }
 .btn {
-  background: green;
-  color: white;
-  padding: 8px 12px;
+  background: #ffcc00;
+  color: #121212;
+  padding: 10px 15px;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
 }
 .banner {
-  background: yellow;
-  color: black;
+  background: linear-gradient(90deg, #ffcc00, #ffaa00);
+  color: #121212;
   text-align: center;
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 8px;
+  padding: 10px;
+  font-weight: bold;
   z-index: 1000;
 }
 .whatsapp-widget {
@@ -52,18 +63,24 @@ table {
   right: 20px;
   background: #25D366;
   color: white;
-  padding: 10px 15px;
-  border-radius: 50px;
+  padding: 12px 18px;
+  border-radius: 40px;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 table {
-  width: 90%;
+  width: 95%;
   margin: 10px auto;
   border-collapse: collapse;
 }
 th, td {
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  border: 1px solid #333;
   text-align: center;
+}
+th {
+  background-color: #292929;
+  color: #ffcc00;
 }
