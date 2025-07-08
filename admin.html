@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .admin-section { margin: 30px 0; background: #1e1e1e; padding: 20px; border-radius: 10px; }
+    .admin-section h2 { margin-bottom: 15px; }
+    .admin-section textarea, .admin-section input { width: 100%; margin-bottom: 10px; padding: 10px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 5px; }
+    .admin-section button { padding: 10px 20px; background: #00e676; color: #111; border: none; border-radius: 5px; font-weight: bold; }
+    .success-msg { color: #00e676; margin-top: 10px; font-weight: bold; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <!-- 🔐 Password Prompt -->
+  <script>
+    const pass = prompt("Enter admin password:");
+    if (pass !== "f7b4ebee") {
+      alert("Access denied!");
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <!-- ⚙️ Admin Panel -->
+  <main class="container">
+    <h1>🔐 Admin Panel</h1>
+
+    <!-- 📈 Predictions Section -->
+    <div class="admin-section">
+      <h2>📈 Today’s Predictions</h2>
+      <textarea id="predictions-json" rows="8"></textarea>
+      <button onclick="savePredictions()">💾 Save Predictions</button>
+      <div id="msg-pred" class="success-msg"></div>
+    </div>
+
+    <!-- 🏆 Accumulator Section -->
+    <div class="admin-section">
+      <h2>🏆 Accumulator (Max 4)</h2>
+      <textarea id="accumulator-json" rows="8"></textarea>
+      <button onclick="saveAccumulator()">💾 Save Accumulator</button>
+      <div id="msg-acc" class="success-msg"></div>
+    </div>
+
+    <!-- 📊 History Section -->
+    <div class="admin-section">
+      <h2>📊 Prediction History</h2>
+      <textarea id="history-json" rows="8"></textarea>
+      <button onclick="saveHistory()">💾 Save History</button>
+      <div id="msg-hist" class="success-msg"></div>
+    </div>
+
+    <!-- 💼 Bookmakers Section -->
+    <div class="admin-section">
+      <h2>💼 Bookmakers</h2>
+      <textarea id="bookmakers-json" rows="8"></textarea>
+      <button onclick="saveBookmakers()">💾 Save Bookmakers</button>
+      <div id="msg-book" class="success-msg"></div>
+    </div>
+  </main>
+
+  <!-- 💬 WhatsApp Floating Button -->
+  <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬</a>
+
+  <script>
+    // Preload data into textareas
+    document.getElementById("predictions-json").value = localStorage.getItem("predictions") || "[]";
+    document.getElementById("accumulator-json").value = localStorage.getItem("accumulator") || "[]";
+    document.getElementById("history-json").value = localStorage.getItem("history") || "[]";
+    document.getElementById("bookmakers-json").value = localStorage.getItem("bookmakers") || "[]";
+
+    // Save functions
+    function savePredictions() {
+      try {
+        const data = JSON.parse(document.getElementById("predictions-json").value);
+        localStorage.setItem("predictions", JSON.stringify(data));
+        document.getElementById("msg-pred").innerText = "✅ Saved successfully!";
+      } catch {
+        alert("❌ Invalid JSON in Predictions");
+      }
+    }
+
+    function saveAccumulator() {
+      try {
+        const data = JSON.parse(document.getElementById("accumulator-json").value);
+        if (data.length > 4) return alert("❌ Only 4 matches allowed.");
+        localStorage.setItem("accumulator", JSON.stringify(data));
+        document.getElementById("msg-acc").innerText = "✅ Saved successfully!";
+      } catch {
+        alert("❌ Invalid JSON in Accumulator");
+      }
+    }
+
+    function saveHistory() {
+      try {
+        const data = JSON.parse(document.getElementById("history-json").value);
+        localStorage.setItem("history", JSON.stringify(data));
+        document.getElementById("msg-hist").innerText = "✅ Saved successfully!";
+      } catch {
+        alert("❌ Invalid JSON in History");
+      }
+    }
+
+    function saveBookmakers() {
+      try {
+        const data = JSON.parse(document.getElementById("bookmakers-json").value);
+        localStorage.setItem("bookmakers", JSON.stringify(data));
+        document.getElementById("msg-book").innerText = "✅ Saved successfully!";
+      } catch {
+        alert("❌ Invalid JSON in Bookmakers");
+      }
+    }
+  </script>
+</body>
+</html>
