@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bookmakers</title>
+  <title>Prediction History</title>
   <style>
     body {
       background: #121212;
@@ -12,22 +12,52 @@
       margin: 0;
       padding-top: 60px;
     }
-    nav {
-      background: #1e1e1e;
+
+    /* Sidebar styles */
+    .menu-button {
       position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      display: flex;
-      justify-content: space-around;
-      padding: 15px 10px;
-      box-shadow: 0 2px 4px #000;
-    }
-    nav a {
-      color: #00e676;
-      text-decoration: none;
+      top: 15px;
+      left: 15px;
+      font-size: 24px;
+      background: #00e676;
+      color: #111;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1001;
       font-weight: bold;
     }
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: #1e1e1e;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+    }
+    .sidebar a {
+      padding: 12px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #00e676;
+      display: block;
+      transition: 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: #333;
+    }
+    .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 36px;
+      color: #00e676;
+    }
+
     .banner {
       background: #00e676;
       color: #111;
@@ -39,45 +69,36 @@
       color: #111;
       text-decoration: underline;
     }
+
     .container {
       padding: 20px;
     }
-    .bookmaker-card {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
       background: #1e1e1e;
       border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
+      overflow: hidden;
     }
-    .bookmaker-card img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      border-radius: 8px;
-      background: #fff;
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #333;
     }
-    .bookmaker-info {
-      flex: 1;
+    th {
+      background-color: #222;
+      color: #00e676;
     }
-    .bookmaker-info h3 {
-      margin: 0 0 5px;
-    }
-    .bookmaker-info p {
-      margin: 0;
-      color: #ccc;
-    }
-    .join-button {
-      background: #00e676;
-      color: #111;
-      padding: 10px 20px;
-      text-decoration: none;
+    .won {
+      color: #00e676;
       font-weight: bold;
-      border-radius: 5px;
     }
+    .lost {
+      color: #f44336;
+      font-weight: bold;
+    }
+
     .whatsapp-widget {
       position: fixed;
       right: 15px;
@@ -95,7 +116,7 @@
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- Sidebar Menu -->
 <div class="sidebar" id="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="index.html">Home</a>
@@ -105,52 +126,60 @@
   <a href="bookmakers.html">Bookmakers</a>
 </div>
 
+<!-- Open Menu Button -->
 <div class="menu-button" onclick="openNav()">☰ Menu</div>
 
-
-<!-- Banner -->
+<!-- Sticky Banner -->
 <div class="banner">
   🔥 Want Premium 2 Odds? <a href="https://wa.me/2348037904787" target="_blank">Chat Us on WhatsApp</a>
 </div>
 
-<!-- Main Content -->
+<!-- Page Content -->
 <div class="container">
-  <h1>💼 Recommended Bookmakers</h1>
-  <div id="bookmaker-container"></div>
+  <h1>📊 Prediction History</h1>
+  <div id="history-container"></div>
 </div>
 
 <!-- WhatsApp CTA -->
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
 <script>
-  const bookmakers = JSON.parse(localStorage.getItem("bookmakers") || "[]");
-  const container = document.getElementById("bookmaker-container");
-
-  if (bookmakers.length === 0) {
-    container.innerHTML = "<p>No bookmakers available yet. Please check back soon.</p>";
-  } else {
-    bookmakers.forEach(book => {
-      const card = document.createElement("div");
-      card.className = "bookmaker-card";
-      card.innerHTML = \`
-        <img src="\${book.logo}" alt="\${book.name} Logo">
-        <div class="bookmaker-info">
-          <h3>\${book.name}</h3>
-          <p>🎁 \${book.bonus}</p>
-        </div>
-        <a href="\${book.link}" class="join-button" target="_blank">Join Now</a>
-      \`;
-      container.appendChild(card);
-    });
-  }
-</script>
-  <script>
   function openNav() {
     document.getElementById("sidebar").style.width = "250px";
   }
   function closeNav() {
     document.getElementById("sidebar").style.width = "0";
   }
+
+  const historyData = JSON.parse(localStorage.getItem("history") || "[]");
+  const container = document.getElementById("history-container");
+
+  if (historyData.length === 0) {
+    container.innerHTML = "<p>No history available yet. Check back tomorrow.</p>";
+  } else {
+    const table = document.createElement("table");
+    table.innerHTML = \`
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Match</th>
+          <th>Tip</th>
+          <th>Outcome</th>
+        </tr>
+      </thead>
+      <tbody>
+        \${historyData.map(item => \`
+          <tr>
+            <td>\${item.date}</td>
+            <td>\${item.match}</td>
+            <td>\${item.tip}</td>
+            <td class="\${item.outcome.toLowerCase()}">\${item.outcome}</td>
+          </tr>\`).join("")}
+      </tbody>
+    \`;
+    container.appendChild(table);
+  }
 </script>
+
 </body>
 </html>
