@@ -96,13 +96,17 @@
 <body>
 
 <!-- Navbar -->
-<nav>
+<div class="sidebar" id="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="index.html">Home</a>
   <a href="predictions.html">Predictions</a>
   <a href="accumulator.html">Accumulator</a>
   <a href="history.html">History</a>
   <a href="bookmakers.html">Bookmakers</a>
-</nav>
+</div>
+
+<div class="menu-button" onclick="openNav()">☰ Menu</div>
+
 
 <!-- Banner -->
 <div class="banner">
@@ -140,6 +144,13 @@
     });
   }
 </script>
-
+  <script>
+  function openNav() {
+    document.getElementById("sidebar").style.width = "250px";
+  }
+  function closeNav() {
+    document.getElementById("sidebar").style.width = "0";
+  }
+</script>
 </body>
 </html>
