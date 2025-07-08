@@ -1,79 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin - Predictions</title>
+  <title>Admin – Predictions</title>
   <style>
-    body { background: #121212; color: white; font-family: sans-serif; padding: 20px; }
-    input { width: 100%; margin: 5px 0; padding: 8px; background: #1f1f1f; border: 1px solid #444; color: white; border-radius: 5px; }
-    .btn { padding: 10px; background: #00e676; border: none; color: #111; font-weight: bold; cursor: pointer; border-radius: 5px; margin-right: 5px; }
-    .btn-danger { background: #ff5252; color: white; }
-    .entry { background: #222; padding: 10px; margin: 10px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
-    .entry span { flex: 1; padding-right: 10px; word-break: break-word; }
+    body {
+      background: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      background: #1f1f1f;
+      color: white;
+    }
+    .btn {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-add { background: #00e676; color: #000; }
+    .btn-edit { background: #2196f3; color: white; }
+    .btn-delete { background: #f44336; color: white; }
+    .entry {
+      background: #1e1e1e;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .entry span {
+      flex: 1;
+      margin-right: 10px;
+    }
   </style>
 </head>
 <body>
 
 <script>
-  const pass = prompt("Enter password:");
+  const pass = prompt("Enter admin password:");
   if (pass !== "letmein123") {
-    alert("Wrong password");
+    alert("Access Denied");
     location.href = "index.html";
   }
 </script>
 
-<h2>📈 Predictions</h2>
+<h2>📈 Manage Predictions</h2>
 
-<input id="match" placeholder="Match">
-<input id="time" placeholder="Kickoff Time">
-<input id="tip" placeholder="Tip">
-<button class="btn" onclick="addPrediction()">Add Prediction</button>
+<input type="text" id="match" placeholder="Match (e.g. Arsenal vs Chelsea)">
+<input type="text" id="time" placeholder="Kickoff Time (e.g. 20:00)">
+<input type="text" id="tip" placeholder="Tip (e.g. Over 2.5)">
 
-<div id="output"></div>
+<button class="btn btn-add" onclick="addPrediction()">Add Prediction</button>
+
+<div id="prediction-list"></div>
 
 <script>
   let predictions = JSON.parse(localStorage.getItem("predictions") || "[]");
 
-  function render() {
-    const output = document.getElementById("output");
-    output.innerHTML = predictions.map((p, i) => `
-      <div class="entry">
-        <span>${p.match} | ${p.time} | ${p.tip}</span>
-        <button class="btn" onclick="editPrediction(${i})">Edit</button>
-        <button class="btn btn-danger" onclick="deletePrediction(${i})">Delete</button>
-      </div>
-    `).join('');
+  function renderPredictions() {
+    const container = document.getElementById("prediction-list");
+    container.innerHTML = "";
+
+    predictions.forEach((p, i) => {
+      const entry = document.createElement("div");
+      entry.className = "entry";
+
+      const text = document.createElement("span");
+      text.textContent = `${p.match} | ${p.time} | ${p.tip}`;
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.className = "btn btn-edit";
+      editBtn.onclick = () => {
+        const match = prompt("Edit Match", p.match);
+        const time = prompt("Edit Time", p.time);
+        const tip = prompt("Edit Tip", p.tip);
+        if (match && time && tip) {
+          predictions[i] = { match, time, tip };
+          localStorage.setItem("predictions", JSON.stringify(predictions));
+          renderPredictions();
+        }
+      };
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.className = "btn btn-delete";
+      deleteBtn.onclick = () => {
+        predictions.splice(i, 1);
+        localStorage.setItem("predictions", JSON.stringify(predictions));
+        renderPredictions();
+      };
+
+      entry.appendChild(text);
+      entry.appendChild(editBtn);
+      entry.appendChild(deleteBtn);
+      container.appendChild(entry);
+    });
   }
 
   function addPrediction() {
-    const match = document.getElementById("match").value;
-    const time = document.getElementById("time").value;
-    const tip = document.getElementById("tip").value;
-    if (!match || !time || !tip) return alert("Fill all fields");
+    const match = document.getElementById("match").value.trim();
+    const time = document.getElementById("time").value.trim();
+    const tip = document.getElementById("tip").value.trim();
+
+    if (!match || !time || !tip) {
+      alert("Fill all fields");
+      return;
+    }
 
     predictions.push({ match, time, tip });
     localStorage.setItem("predictions", JSON.stringify(predictions));
-    render();
+    document.getElementById("match").value = "";
+    document.getElementById("time").value = "";
+    document.getElementById("tip").value = "";
+    renderPredictions();
   }
 
-  function deletePrediction(i) {
-    predictions.splice(i, 1);
-    localStorage.setItem("predictions", JSON.stringify(predictions));
-    render();
-  }
-
-  function editPrediction(i) {
-    const p = predictions[i];
-    const match = prompt("Edit Match", p.match);
-    const time = prompt("Edit Time", p.time);
-    const tip = prompt("Edit Tip", p.tip);
-    if (match && time && tip) {
-      predictions[i] = { match, time, tip };
-      localStorage.setItem("predictions", JSON.stringify(predictions));
-      render();
-    }
-  }
-
-  render();
+  renderPredictions();
 </script>
 
 </body>
