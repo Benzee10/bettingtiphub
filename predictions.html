@@ -1,41 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Today’s Predictions</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding-top: 60px;
+    }
+    nav {
+      background: #1e1e1e;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 10px;
+      box-shadow: 0 2px 4px #000;
+    }
+    nav a {
+      color: #00e676;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .banner {
+      background: #00e676;
+      color: #111;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .banner a {
+      color: #111;
+      text-decoration: underline;
+    }
+    .container {
+      padding: 20px;
+    }
+    .prediction-card {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .prediction-card h3 {
+      margin: 0 0 8px;
+    }
+    .prediction-card span {
+      color: #ccc;
+      display: block;
+      margin-top: 5px;
+    }
+    .whatsapp-widget {
+      position: fixed;
+      right: 15px;
+      bottom: 20px;
+      background-color: #25d366;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 🔥 Sticky Banner -->
-  <div class="banner">
-    🔥 Want Premium 2 Odds? 
-    <a href="https://wa.me/2348037904787" style="color:#111;">Chat Us on WhatsApp</a>
-  </div>
+<!-- Navbar -->
+<nav>
+  <a href="index.html">Home</a>
+  <a href="predictions.html">Predictions</a>
+  <a href="accumulator.html">Accumulator</a>
+  <a href="history.html">History</a>
+  <a href="bookmakers.html">Bookmakers</a>
+</nav>
 
-  <!-- 🔝 Navigation -->
-  <nav class="navbar">
-    <h1>⚽ Predict. Win. Repeat.</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="predictions.html">Predictions</a></li>
-      <li><a href="accumulator.html">Accumulator</a></li>
-      <li><a href="history.html">History</a></li>
-      <li><a href="bookmakers.html">Bookmakers</a></li>
-    </ul>
-  </nav>
+<!-- Banner -->
+<div class="banner">
+  🔥 Want Premium 2 Odds? <a href="https://wa.me/2348037904787" target="_blank">Chat Us on WhatsApp</a>
+</div>
 
-  <!-- 📈 Predictions Section -->
-  <main class="container">
-    <h2>📈 Today’s Predictions</h2>
-    <div id="predictions-container"></div>
-  </main>
+<!-- Page Content -->
+<div class="container">
+  <h1>📈 Today’s Predictions</h1>
+  <div id="predictions-container"></div>
+</div>
 
-  <!-- 💬 WhatsApp Floating Button -->
-  <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬</a>
+<!-- WhatsApp CTA -->
+<a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
-  <script src="js/main.js"></script>
-  <script src="js/predictions.js"></script>
+<script>
+  const predictions = JSON.parse(localStorage.getItem('predictions') || '[]');
+  const container = document.getElementById('predictions-container');
+
+  if (predictions.length === 0) {
+    container.innerHTML = '<p>No predictions available yet. Please check back later.</p>';
+  } else {
+    predictions.forEach(pred => {
+      const card = document.createElement('div');
+      card.className = 'prediction-card';
+      card.innerHTML = \`
+        <h3>⚽ \${pred.match}</h3>
+        <span>🕒 Kickoff: \${pred.time}</span>
+        <span>📌 Tip: <strong>\${pred.tip}</strong></span>
+      \`;
+      container.appendChild(card);
+    });
+  }
+</script>
+
 </body>
 </html>
