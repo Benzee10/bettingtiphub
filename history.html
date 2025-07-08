@@ -4,52 +4,133 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Prediction History</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding-top: 60px;
+    }
+    nav {
+      background: #1e1e1e;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 10px;
+      box-shadow: 0 2px 4px #000;
+    }
+    nav a {
+      color: #00e676;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .banner {
+      background: #00e676;
+      color: #111;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .banner a {
+      color: #111;
+      text-decoration: underline;
+    }
+    .container {
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      background: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+    th {
+      background-color: #222;
+      color: #00e676;
+    }
+    .won { color: #00e676; font-weight: bold; }
+    .lost { color: #f44336; font-weight: bold; }
+    .whatsapp-widget {
+      position: fixed;
+      right: 15px;
+      bottom: 20px;
+      background-color: #25d366;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 🔥 Sticky Banner -->
-  <div class="banner">
-    🔥 Want Premium 2 Odds? 
-    <a href="https://wa.me/2348037904787" style="color:#111;">Chat Us on WhatsApp</a>
-  </div>
+<!-- Navbar -->
+<nav>
+  <a href="index.html">Home</a>
+  <a href="predictions.html">Predictions</a>
+  <a href="accumulator.html">Accumulator</a>
+  <a href="history.html">History</a>
+  <a href="bookmakers.html">Bookmakers</a>
+</nav>
 
-  <!-- 🔝 Navigation -->
-  <nav class="navbar">
-    <h1>⚽ Predict. Win. Repeat.</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="predictions.html">Predictions</a></li>
-      <li><a href="accumulator.html">Accumulator</a></li>
-      <li><a href="history.html">History</a></li>
-      <li><a href="bookmakers.html">Bookmakers</a></li>
-    </ul>
-  </nav>
+<!-- Banner -->
+<div class="banner">
+  🔥 Want Premium 2 Odds? <a href="https://wa.me/2348037904787" target="_blank">Chat Us on WhatsApp</a>
+</div>
 
-  <!-- 📊 History Table -->
-  <main class="container">
-    <h2>📊 Prediction History</h2>
-    <div class="table-container">
-      <table>
-        <thead>
+<!-- Main Content -->
+<div class="container">
+  <h1>📊 Prediction History</h1>
+  <div id="history-container"></div>
+</div>
+
+<!-- WhatsApp CTA -->
+<a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
+
+<script>
+  const historyData = JSON.parse(localStorage.getItem("history") || "[]");
+  const container = document.getElementById("history-container");
+
+  if (historyData.length === 0) {
+    container.innerHTML = "<p>No history available yet. Check back tomorrow.</p>";
+  } else {
+    const table = document.createElement("table");
+    table.innerHTML = \`
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Match</th>
+          <th>Tip</th>
+          <th>Outcome</th>
+        </tr>
+      </thead>
+      <tbody>
+        \${historyData.map(item => \`
           <tr>
-            <th>Date</th>
-            <th>Match</th>
-            <th>Tip</th>
-            <th>Outcome</th>
-          </tr>
-        </thead>
-        <tbody id="history-table-body">
-          <!-- JS will populate this -->
-        </tbody>
-      </table>
-    </div>
-  </main>
+            <td>\${item.date}</td>
+            <td>\${item.match}</td>
+            <td>\${item.tip}</td>
+            <td class="\${item.outcome.toLowerCase()}">\${item.outcome}</td>
+          </tr>\`).join("")}
+      </tbody>
+    \`;
+    container.appendChild(table);
+  }
+</script>
 
-  <!-- 💬 WhatsApp Floating Button -->
-  <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬</a>
-
-  <script src="js/main.js"></script>
-  <script src="js/history.js"></script>
 </body>
 </html>
