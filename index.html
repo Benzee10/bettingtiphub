@@ -2,46 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Predict. Win. Repeat.</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding-top: 60px;
+    }
+    nav {
+      background: #1e1e1e;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 10px;
+      box-shadow: 0 2px 4px #000;
+    }
+    nav a {
+      color: #00e676;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .banner {
+      background: #00e676;
+      color: #111;
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .banner a {
+      color: #111;
+      text-decoration: underline;
+    }
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+    .container h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .container p {
+      color: #ccc;
+      font-size: 18px;
+    }
+    .whatsapp-widget {
+      position: fixed;
+      right: 15px;
+      bottom: 20px;
+      background-color: #25d366;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 🔥 Sticky Banner -->
-  <div class="banner">
-    🔥 Want Premium 2 Odds? 
-    <a href="https://wa.me/2348037904787" style="color:#111;">Chat Us on WhatsApp</a>
-  </div>
-
-  <!-- 🔝 Navigation -->
-  <nav class="navbar">
-    <h1>⚽ Predict. Win. Repeat.</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="predictions.html">Predictions</a></li>
-      <li><a href="accumulator.html">Accumulator</a></li>
-      <li><a href="history.html">History</a></li>
-      <li><a href="bookmakers.html">Bookmakers</a></li>
-    </ul>
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="predictions.html">Predictions</a>
+    <a href="accumulator.html">Accumulator</a>
+    <a href="history.html">History</a>
+    <a href="bookmakers.html">Bookmakers</a>
   </nav>
 
-  <!-- 📢 Welcome Section -->
-  <main class="home-container">
-    <h2>Welcome to Predict. Win. Repeat. 🎯</h2>
-    <p>Your trusted source for daily football predictions, accumulator tips, and verified bookmakers. Start winning today!</p>
+  <!-- Sticky Banner -->
+  <div class="banner">
+    🔥 Want Premium 2 Odds? <a href="https://wa.me/2348037904787" target="_blank">Chat Us on WhatsApp</a>
+  </div>
 
-    <div class="home-cards">
-      <a href="predictions.html" class="card">📈 Today's Predictions</a>
-      <a href="accumulator.html" class="card">🏆 4-Fold Accumulator</a>
-      <a href="history.html" class="card">📊 History</a>
-      <a href="bookmakers.html" class="card">💼 Top Bookmakers</a>
-    </div>
-  </main>
+  <!-- Main Section -->
+  <div class="container">
+    <h1>⚽ Predict. Win. Repeat.</h1>
+    <p>Your daily source for accurate football tips, accumulator picks and betting insights.</p>
+    <p>Updated daily with expert predictions and verified win history. Start winning today!</p>
+  </div>
 
-  <!-- 💬 WhatsApp Floating Button -->
-  <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬</a>
+  <!-- WhatsApp CTA -->
+  <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
-  <script src="js/main.js"></script>
 </body>
 </html>
