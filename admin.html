@@ -1,258 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel</title>
+  <title>Test Accumulator</title>
   <style>
-    body { background: #121212; color: white; font-family: sans-serif; padding: 20px; }
-    input, select { width: 100%; padding: 10px; margin: 6px 0; background: #1f1f1f; border: 1px solid #333; color: white; border-radius: 5px; }
-    .btn { padding: 10px; margin: 5px 5px 0 0; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-    .btn-add { background: #00e676; color: #111; }
+    body { background: #121212; color: white; padding: 20px; font-family: sans-serif; }
+    input { width: 100%; padding: 10px; margin: 6px 0; background: #1f1f1f; color: white; border: 1px solid #333; border-radius: 5px; }
+    .btn { padding: 10px; border: none; border-radius: 5px; margin-right: 5px; font-weight: bold; cursor: pointer; }
+    .btn-add { background: #00e676; color: #000; }
     .btn-edit { background: #2196f3; color: white; }
     .btn-delete { background: #f44336; color: white; }
-    .section { margin-top: 40px; }
-    .entry { background: #1e1e1e; padding: 10px; margin-top: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-    .entry span { flex: 1; margin-right: 10px; }
+    .entry { background: #1e1e1e; padding: 10px; margin-top: 10px; border-radius: 5px; display: flex; justify-content: space-between; flex-wrap: wrap; }
+    .entry span { flex: 1; }
   </style>
 </head>
 <body>
 
 <script>
-  const pass = prompt("Enter admin password:");
-  if (pass !== "letmein123") {
-    alert("Access Denied");
-    location.href = "index.html";
-  }
+  const pass = prompt("Password?");
+  if (pass !== "letmein123") location.href = "index.html";
 </script>
 
-<h1>🔐 Admin Panel</h1>
-
-<!-- 📈 Predictions -->
-<div class="section">
-  <h2>📈 Manage Predictions</h2>
-  <input id="pred-match" placeholder="Match">
-  <input id="pred-time" placeholder="Kickoff Time">
-  <input id="pred-tip" placeholder="Tip">
-  <button class="btn btn-add" onclick="addPrediction()">Add Prediction</button>
-  <div id="prediction-list"></div>
-</div>
-
-<!-- 🏆 Accumulator -->
-<div class="section">
-  <h2>🏆 Manage Accumulator (Max 10)</h2>
-  <input id="acc-match" placeholder="Match">
-  <input id="acc-tip" placeholder="Tip">
-  <input id="acc-odds" placeholder="Odds">
-  <input id="acc-link" placeholder="Affiliate Link">
-  <button class="btn btn-add" onclick="addAccumulator()">Add Accumulator</button>
-  <div id="accumulator-list"></div>
-</div>
-
-<!-- 📊 History -->
-<div class="section">
-  <h2>📊 Manage History</h2>
-  <input type="date" id="hist-date">
-  <input id="hist-match" placeholder="Match">
-  <input id="hist-tip" placeholder="Tip">
-  <select id="hist-outcome">
-    <option value="">Select Outcome</option>
-    <option value="Won">Won</option>
-    <option value="Lost">Lost</option>
-  </select>
-  <button class="btn btn-add" onclick="addHistory()">Add History</button>
-  <div id="history-list"></div>
-</div>
-
-<!-- 💼 Bookmakers -->
-<div class="section">
-  <h2>💼 Manage Bookmakers</h2>
-  <input id="book-name" placeholder="Bookmaker Name">
-  <input id="book-logo" placeholder="Logo URL">
-  <input id="book-bonus" placeholder="Bonus Text">
-  <input id="book-link" placeholder="Affiliate Link">
-  <button class="btn btn-add" onclick="addBookmaker()">Add Bookmaker</button>
-  <div id="bookmaker-list"></div>
-</div>
+<h2>🏆 Accumulator Tips (Max 10)</h2>
+<input id="acc-match" placeholder="Match">
+<input id="acc-tip" placeholder="Tip">
+<input id="acc-odds" placeholder="Odds">
+<input id="acc-link" placeholder="Affiliate Link">
+<button class="btn btn-add" onclick="addAccumulator()">Add</button>
+<div id="accumulator-list"></div>
 
 <script>
-  // 📈 Predictions
-  let predictions = JSON.parse(localStorage.getItem("predictions") || "[]");
-  function renderPredictions() {
-    const out = document.getElementById("prediction-list");
-    out.innerHTML = "";
-    predictions.forEach((p, i) => {
-      const div = document.createElement("div");
-      div.className = "entry";
-      div.innerHTML = \`
-        <span>\${p.match} | \${p.time} | \${p.tip}</span>
-        <button class="btn btn-edit" onclick="editPrediction(\${i})">Edit</button>
-        <button class="btn btn-delete" onclick="deletePrediction(\${i})">Delete</button>\`;
-      out.appendChild(div);
-    });
-  }
-  function addPrediction() {
-    const match = document.getElementById("pred-match").value.trim();
-    const time = document.getElementById("pred-time").value.trim();
-    const tip = document.getElementById("pred-tip").value.trim();
-    if (!match || !time || !tip) return alert("Fill all fields");
-    predictions.push({ match, time, tip });
-    localStorage.setItem("predictions", JSON.stringify(predictions));
-    renderPredictions();
-  }
-  function editPrediction(i) {
-    const p = predictions[i];
-    const match = prompt("Match", p.match);
-    const time = prompt("Time", p.time);
-    const tip = prompt("Tip", p.tip);
-    if (match && time && tip) {
-      predictions[i] = { match, time, tip };
-      localStorage.setItem("predictions", JSON.stringify(predictions));
-      renderPredictions();
-    }
-  }
-  function deletePrediction(i) {
-    predictions.splice(i, 1);
-    localStorage.setItem("predictions", JSON.stringify(predictions));
-    renderPredictions();
-  }
+let accumulator = JSON.parse(localStorage.getItem("accumulator") || "[]");
 
-  // 🏆 Accumulator
-  let accumulator = JSON.parse(localStorage.getItem("accumulator") || "[]");
-  function renderAccumulator() {
-    const out = document.getElementById("accumulator-list");
-    out.innerHTML = "";
-    accumulator.forEach((a, i) => {
-      const div = document.createElement("div");
-      div.className = "entry";
-      div.innerHTML = \`
-        <span>\${a.match} | \${a.tip} | \${a.odds} | <a href="\${a.link}" target="_blank">Link</a></span>
-        <button class="btn btn-edit" onclick="editAccumulator(\${i})">Edit</button>
-        <button class="btn btn-delete" onclick="deleteAccumulator(\${i})">Delete</button>\`;
-      out.appendChild(div);
-    });
-  }
-  function addAccumulator() {
-    if (accumulator.length >= 10) return alert("Max 10 allowed");
-    const match = document.getElementById("acc-match").value.trim();
-    const tip = document.getElementById("acc-tip").value.trim();
-    const odds = document.getElementById("acc-odds").value.trim();
-    const link = document.getElementById("acc-link").value.trim();
-    if (!match || !tip || !odds || !link) return alert("Fill all fields");
-    accumulator.push({ match, tip, odds, link });
-    localStorage.setItem("accumulator", JSON.stringify(accumulator));
-    renderAccumulator();
-  }
-  function editAccumulator(i) {
-    const a = accumulator[i];
-    const match = prompt("Match", a.match);
-    const tip = prompt("Tip", a.tip);
-    const odds = prompt("Odds", a.odds);
-    const link = prompt("Link", a.link);
-    if (match && tip && odds && link) {
-      accumulator[i] = { match, tip, odds, link };
-      localStorage.setItem("accumulator", JSON.stringify(accumulator));
-      renderAccumulator();
-    }
-  }
-  function deleteAccumulator(i) {
-    accumulator.splice(i, 1);
-    localStorage.setItem("accumulator", JSON.stringify(accumulator));
-    renderAccumulator();
-  }
+function renderAccumulator() {
+  const out = document.getElementById("accumulator-list");
+  out.innerHTML = "";
+  accumulator.forEach((a, i) => {
+    const div = document.createElement("div");
+    div.className = "entry";
+    div.innerHTML = `
+      <span>${a.match} | ${a.tip} | ${a.odds} | <a href="${a.link}" target="_blank">Link</a></span>
+      <button class="btn btn-edit" onclick="editAccumulator(${i})">Edit</button>
+      <button class="btn btn-delete" onclick="deleteAccumulator(${i})">Delete</button>`;
+    out.appendChild(div);
+  });
+}
 
-  // 📊 History
-  let historyData = JSON.parse(localStorage.getItem("history") || "[]");
-  function renderHistory() {
-    const out = document.getElementById("history-list");
-    out.innerHTML = "";
-    historyData.forEach((h, i) => {
-      const div = document.createElement("div");
-      div.className = "entry";
-      div.innerHTML = \`
-        <span>\${h.date} | \${h.match} | \${h.tip} | \${h.outcome}</span>
-        <button class="btn btn-edit" onclick="editHistory(\${i})">Edit</button>
-        <button class="btn btn-delete" onclick="deleteHistory(\${i})">Delete</button>\`;
-      out.appendChild(div);
-    });
-  }
-  function addHistory() {
-    const date = document.getElementById("hist-date").value;
-    const match = document.getElementById("hist-match").value.trim();
-    const tip = document.getElementById("hist-tip").value.trim();
-    const outcome = document.getElementById("hist-outcome").value;
-    if (!date || !match || !tip || !outcome) return alert("Fill all fields");
-    historyData.push({ date, match, tip, outcome });
-    localStorage.setItem("history", JSON.stringify(historyData));
-    renderHistory();
-  }
-  function editHistory(i) {
-    const h = historyData[i];
-    const date = prompt("Date", h.date);
-    const match = prompt("Match", h.match);
-    const tip = prompt("Tip", h.tip);
-    const outcome = prompt("Outcome (Won/Lost)", h.outcome);
-    if (date && match && tip && outcome) {
-      historyData[i] = { date, match, tip, outcome };
-      localStorage.setItem("history", JSON.stringify(historyData));
-      renderHistory();
-    }
-  }
-  function deleteHistory(i) {
-    historyData.splice(i, 1);
-    localStorage.setItem("history", JSON.stringify(historyData));
-    renderHistory();
-  }
+function addAccumulator() {
+  if (accumulator.length >= 10) return alert("Max 10 allowed");
+  const match = document.getElementById("acc-match").value.trim();
+  const tip = document.getElementById("acc-tip").value.trim();
+  const odds = document.getElementById("acc-odds").value.trim();
+  const link = document.getElementById("acc-link").value.trim();
+  if (!match || !tip || !odds || !link) return alert("Fill all fields");
 
-  // 💼 Bookmakers
-  let bookmakers = JSON.parse(localStorage.getItem("bookmakers") || "[]");
-  function renderBookmakers() {
-    const out = document.getElementById("bookmaker-list");
-    out.innerHTML = "";
-    bookmakers.forEach((b, i) => {
-      const div = document.createElement("div");
-      div.className = "entry";
-      div.innerHTML = \`
-        <span><img src="\${b.logo}" alt="" width="30" style="vertical-align:middle; margin-right:10px;">\${b.name} | \${b.bonus} | <a href="\${b.link}" target="_blank">Join</a></span>
-        <button class="btn btn-edit" onclick="editBookmaker(\${i})">Edit</button>
-        <button class="btn btn-delete" onclick="deleteBookmaker(\${i})">Delete</button>\`;
-      out.appendChild(div);
-    });
-  }
-  function addBookmaker() {
-    const name = document.getElementById("book-name").value.trim();
-    const logo = document.getElementById("book-logo").value.trim();
-    const bonus = document.getElementById("book-bonus").value.trim();
-    const link = document.getElementById("book-link").value.trim();
-    if (!name || !logo || !bonus || !link) return alert("Fill all fields");
-    bookmakers.push({ name, logo, bonus, link });
-    localStorage.setItem("bookmakers", JSON.stringify(bookmakers));
-    renderBookmakers();
-  }
-  function editBookmaker(i) {
-    const b = bookmakers[i];
-    const name = prompt("Name", b.name);
-    const logo = prompt("Logo URL", b.logo);
-    const bonus = prompt("Bonus", b.bonus);
-    const link = prompt("Affiliate Link", b.link);
-    if (name && logo && bonus && link) {
-      bookmakers[i] = { name, logo, bonus, link };
-      localStorage.setItem("bookmakers", JSON.stringify(bookmakers));
-      renderBookmakers();
-    }
-  }
-  function deleteBookmaker(i) {
-    bookmakers.splice(i, 1);
-    localStorage.setItem("bookmakers", JSON.stringify(bookmakers));
-    renderBookmakers();
-  }
-
-  // Initial render
-  renderPredictions();
+  accumulator.push({ match, tip, odds, link });
+  localStorage.setItem("accumulator", JSON.stringify(accumulator));
   renderAccumulator();
-  renderHistory();
-  renderBookmakers();
-</script>
+}
 
+function editAccumulator(i) {
+  const a = accumulator[i];
+  const match = prompt("Match", a.match);
+  const tip = prompt("Tip", a.tip);
+  const odds = prompt("Odds", a.odds);
+  const link = prompt("Link", a.link);
+  if (match && tip && odds && link) {
+    accumulator[i] = { match, tip, odds, link };
+    localStorage.setItem("accumulator", JSON.stringify(accumulator));
+    renderAccumulator();
+  }
+}
+
+function deleteAccumulator(i) {
+  accumulator.splice(i, 1);
+  localStorage.setItem("accumulator", JSON.stringify(accumulator));
+  renderAccumulator();
+}
+
+renderAccumulator();
+</script>
 </body>
 </html>
