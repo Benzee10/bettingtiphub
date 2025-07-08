@@ -133,6 +133,7 @@
 <!-- WhatsApp CTA -->
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
+<!-- Script Section -->
 <script>
   function openNav() {
     document.getElementById("sidebar").style.width = "250px";
@@ -150,11 +151,11 @@
     predictions.forEach(pred => {
       const card = document.createElement('div');
       card.className = 'prediction-card';
-      card.innerHTML = \`
-        <h3>⚽ \${pred.match}</h3>
-        <span>🕒 Kickoff: \${pred.time}</span>
-        <span>📌 Tip: <strong>\${pred.tip}</strong></span>
-      \`;
+      card.innerHTML = `
+        <h3>⚽ ${pred.match}</h3>
+        <span>🕒 Kickoff: ${pred.time}</span>
+        <span>📌 Tip: <strong>${pred.tip}</strong></span>
+      `;
       container.appendChild(card);
     });
   }
