@@ -12,25 +12,52 @@
       margin: 0;
       padding-top: 60px;
     }
-    nav {
-      background: #1e1e1e;
+
+    /* Sidebar styles */
+    .menu-button {
       position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 999;
-      display: flex;
-      justify-content: space-around;
-      padding: 15px 10px;
-      box-shadow: 0 2px 4px #000;
-    }
-    nav a {
-      color: #00e676;
-      text-decoration: none;
+      top: 15px;
+      left: 15px;
+      font-size: 24px;
+      background: #00e676;
+      color: #111;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1001;
       font-weight: bold;
     }
-    nav a:hover {
-      text-decoration: underline;
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: #1e1e1e;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
     }
+    .sidebar a {
+      padding: 12px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #00e676;
+      display: block;
+      transition: 0.2s;
+    }
+    .sidebar a:hover {
+      background-color: #333;
+    }
+    .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 36px;
+      color: #00e676;
+    }
+
     .banner {
       background: #00e676;
       color: #111;
@@ -42,6 +69,7 @@
       color: #111;
       text-decoration: underline;
     }
+
     .container {
       padding: 20px;
       text-align: center;
@@ -54,6 +82,7 @@
       color: #ccc;
       font-size: 18px;
     }
+
     .whatsapp-widget {
       position: fixed;
       right: 15px;
@@ -67,19 +96,12 @@
       font-size: 14px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <div class="sidebar" id="sidebar">
+<!-- Sidebar Menu -->
+<div class="sidebar" id="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
   <a href="index.html">Home</a>
   <a href="predictions.html">Predictions</a>
@@ -88,24 +110,25 @@
   <a href="bookmakers.html">Bookmakers</a>
 </div>
 
+<!-- Open Menu Button -->
 <div class="menu-button" onclick="openNav()">☰ Menu</div>
 
+<!-- Sticky Banner -->
+<div class="banner">
+  🔥 Want Premium 2 Odds? <a href="https://wa.me/2348037904787" target="_blank">Chat Us on WhatsApp</a>
+</div>
 
-  <!-- Sticky Banner -->
-  <div class="banner">
-    🔥 Want Premium 2 Odds? <a href="https://wa.me/2348037904787" target="_blank">Chat Us on WhatsApp</a>
-  </div>
+<!-- Main Section -->
+<div class="container">
+  <h1>⚽ Predict. Win. Repeat.</h1>
+  <p>Your daily source for accurate football tips, accumulator picks and betting insights.</p>
+  <p>Updated daily with expert predictions and verified win history. Start winning today!</p>
+</div>
 
-  <!-- Main Section -->
-  <div class="container">
-    <h1>⚽ Predict. Win. Repeat.</h1>
-    <p>Your daily source for accurate football tips, accumulator picks and betting insights.</p>
-    <p>Updated daily with expert predictions and verified win history. Start winning today!</p>
-  </div>
+<!-- WhatsApp CTA -->
+<a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
-  <!-- WhatsApp CTA -->
-  <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
-  <script>
+<script>
   function openNav() {
     document.getElementById("sidebar").style.width = "250px";
   }
@@ -113,7 +136,6 @@
     document.getElementById("sidebar").style.width = "0";
   }
 </script>
-
 
 </body>
 </html>
