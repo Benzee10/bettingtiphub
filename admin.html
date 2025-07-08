@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Panel</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css"/>
   <style>
     body { background: #121212; color: #fff; font-family: sans-serif; }
-    .container { padding: 20px; max-width: 800px; margin: auto; }
+    .container { padding: 20px; max-width: 1000px; margin: auto; }
     .admin-section { margin: 40px 0; background: #1e1e1e; padding: 20px; border-radius: 10px; }
     .admin-section h2 { margin-bottom: 15px; }
     input, select { width: 100%; padding: 10px; margin-bottom: 10px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 5px; }
-    .btn { background: #00e676; color: #111; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+    .btn { background: #00e676; color: #111; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; margin-right: 10px; }
+    .btn-danger { background: #ff5252; color: #fff; }
     .row-group { display: flex; gap: 10px; flex-wrap: wrap; }
     .row-group > * { flex: 1 1 45%; }
+    .entry { background: #222; padding: 10px; margin: 10px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .entry span { flex: 1; padding-right: 10px; word-break: break-word; }
     .success { color: #00e676; font-weight: bold; margin-top: 10px; }
   </style>
 </head>
@@ -28,38 +31,40 @@
 </script>
 
 <div class="container">
-  <h1>🔐 Simple Admin Panel</h1>
+  <h1>🔐 Admin Panel</h1>
 
   <!-- 📈 Predictions -->
   <div class="admin-section">
-    <h2>📈 Add Prediction</h2>
+    <h2>📈 Manage Predictions</h2>
     <div class="row-group">
-      <input id="pred-match" placeholder="Match (e.g. Arsenal vs Chelsea)" />
-      <input id="pred-time" placeholder="Kickoff Time (e.g. 20:00)" />
+      <input id="pred-match" placeholder="Match" />
+      <input id="pred-time" placeholder="Kickoff Time" />
     </div>
-    <input id="pred-tip" placeholder="Tip (e.g. Over 2.5)" />
+    <input id="pred-tip" placeholder="Tip" />
     <button class="btn" onclick="addPrediction()">Add Prediction</button>
     <div id="pred-msg" class="success"></div>
+    <div id="prediction-list"></div>
   </div>
 
   <!-- 🏆 Accumulator -->
   <div class="admin-section">
-    <h2>🏆 Add Accumulator Match (Max 4)</h2>
+    <h2>🏆 Manage Accumulator (Max 10)</h2>
     <div class="row-group">
       <input id="acc-match" placeholder="Match" />
       <input id="acc-tip" placeholder="Tip" />
     </div>
     <div class="row-group">
-      <input id="acc-odds" placeholder="Odds (e.g. 1.55)" />
+      <input id="acc-odds" placeholder="Odds" />
       <input id="acc-link" placeholder="Affiliate Link" />
     </div>
     <button class="btn" onclick="addAccumulator()">Add Accumulator</button>
     <div id="acc-msg" class="success"></div>
+    <div id="accumulator-list"></div>
   </div>
 
   <!-- 📊 History -->
   <div class="admin-section">
-    <h2>📊 Add to History</h2>
+    <h2>📊 Manage History</h2>
     <div class="row-group">
       <input id="hist-date" type="date" />
       <input id="hist-match" placeholder="Match" />
@@ -72,73 +77,186 @@
     </select>
     <button class="btn" onclick="addHistory()">Add History</button>
     <div id="hist-msg" class="success"></div>
+    <div id="history-list"></div>
   </div>
 
   <!-- 💼 Bookmakers -->
   <div class="admin-section">
-    <h2>💼 Add Bookmaker</h2>
+    <h2>💼 Manage Bookmakers</h2>
     <input id="book-name" placeholder="Bookmaker Name" />
     <input id="book-logo" placeholder="Logo URL" />
     <input id="book-bonus" placeholder="Bonus Offer" />
     <input id="book-link" placeholder="Affiliate Link" />
     <button class="btn" onclick="addBookmaker()">Add Bookmaker</button>
     <div id="book-msg" class="success"></div>
+    <div id="bookmaker-list"></div>
   </div>
 </div>
 
 <script>
+  // 📈 Predictions
+  let predictions = JSON.parse(localStorage.getItem("predictions") || "[]");
+  function renderPredictions() {
+    const list = document.getElementById("prediction-list");
+    list.innerHTML = predictions.map((p, i) => \`
+      <div class="entry">
+        <span>\${p.match} | \${p.time} | \${p.tip}</span>
+        <button class="btn" onclick="editPrediction(\${i})">Edit</button>
+        <button class="btn btn-danger" onclick="deletePrediction(\${i})">Delete</button>
+      </div>\`).join('');
+  }
   function addPrediction() {
     const match = document.getElementById("pred-match").value;
     const time = document.getElementById("pred-time").value;
     const tip = document.getElementById("pred-tip").value;
-
-    if (!match || !time || !tip) return alert("Please fill all fields.");
-
-    let data = JSON.parse(localStorage.getItem("predictions") || "[]");
-    data.push({ match, time, tip });
-    localStorage.setItem("predictions", JSON.stringify(data));
-    document.getElementById("pred-msg").innerText = "✅ Prediction Saved!";
+    if (!match || !time || !tip) return alert("Fill all fields");
+    predictions.push({ match, time, tip });
+    localStorage.setItem("predictions", JSON.stringify(predictions));
+    renderPredictions();
+  }
+  function editPrediction(i) {
+    const p = predictions[i];
+    const match = prompt("Edit Match:", p.match);
+    const time = prompt("Edit Time:", p.time);
+    const tip = prompt("Edit Tip:", p.tip);
+    if (match && time && tip) {
+      predictions[i] = { match, time, tip };
+      localStorage.setItem("predictions", JSON.stringify(predictions));
+      renderPredictions();
+    }
+  }
+  function deletePrediction(i) {
+    predictions.splice(i, 1);
+    localStorage.setItem("predictions", JSON.stringify(predictions));
+    renderPredictions();
   }
 
+  // 🏆 Accumulator
+  let accumulator = JSON.parse(localStorage.getItem("accumulator") || "[]");
+  function renderAccumulator() {
+    const list = document.getElementById("accumulator-list");
+    list.innerHTML = accumulator.map((a, i) => \`
+      <div class="entry">
+        <span>\${a.match} | \${a.tip} | \${a.odds} | <a href="\${a.link}" target="_blank">Link</a></span>
+        <button class="btn" onclick="editAccumulator(\${i})">Edit</button>
+        <button class="btn btn-danger" onclick="deleteAccumulator(\${i})">Delete</button>
+      </div>\`).join('');
+  }
   function addAccumulator() {
     const match = document.getElementById("acc-match").value;
     const tip = document.getElementById("acc-tip").value;
-    const odds = parseFloat(document.getElementById("acc-odds").value);
+    const odds = document.getElementById("acc-odds").value;
     const link = document.getElementById("acc-link").value;
-
     if (!match || !tip || !odds || !link) return alert("Fill all fields.");
-    let data = JSON.parse(localStorage.getItem("accumulator") || "[]");
-    if (data.length >= 4) return alert("Max 4 accumulator matches.");
-    data.push({ match, tip, odds, link });
-    localStorage.setItem("accumulator", JSON.stringify(data));
-    document.getElementById("acc-msg").innerText = "✅ Accumulator Saved!";
+    if (accumulator.length >= 10) return alert("Max 10 tips allowed.");
+    accumulator.push({ match, tip, odds, link });
+    localStorage.setItem("accumulator", JSON.stringify(accumulator));
+    renderAccumulator();
+  }
+  function editAccumulator(i) {
+    const a = accumulator[i];
+    const match = prompt("Edit Match:", a.match);
+    const tip = prompt("Edit Tip:", a.tip);
+    const odds = prompt("Edit Odds:", a.odds);
+    const link = prompt("Edit Link:", a.link);
+    if (match && tip && odds && link) {
+      accumulator[i] = { match, tip, odds, link };
+      localStorage.setItem("accumulator", JSON.stringify(accumulator));
+      renderAccumulator();
+    }
+  }
+  function deleteAccumulator(i) {
+    accumulator.splice(i, 1);
+    localStorage.setItem("accumulator", JSON.stringify(accumulator));
+    renderAccumulator();
   }
 
+  // 📊 History
+  let historyData = JSON.parse(localStorage.getItem("history") || "[]");
+  function renderHistory() {
+    const list = document.getElementById("history-list");
+    list.innerHTML = historyData.map((h, i) => \`
+      <div class="entry">
+        <span>\${h.date} | \${h.match} | \${h.tip} | \${h.outcome}</span>
+        <button class="btn" onclick="editHistory(\${i})">Edit</button>
+        <button class="btn btn-danger" onclick="deleteHistory(\${i})">Delete</button>
+      </div>\`).join('');
+  }
   function addHistory() {
     const date = document.getElementById("hist-date").value;
     const match = document.getElementById("hist-match").value;
     const tip = document.getElementById("hist-tip").value;
     const outcome = document.getElementById("hist-outcome").value;
-
     if (!date || !match || !tip || !outcome) return alert("Fill all fields.");
-    let data = JSON.parse(localStorage.getItem("history") || "[]");
-    data.push({ date, match, tip, outcome });
-    localStorage.setItem("history", JSON.stringify(data));
-    document.getElementById("hist-msg").innerText = "✅ History Updated!";
+    historyData.push({ date, match, tip, outcome });
+    localStorage.setItem("history", JSON.stringify(historyData));
+    renderHistory();
+  }
+  function editHistory(i) {
+    const h = historyData[i];
+    const date = prompt("Edit Date:", h.date);
+    const match = prompt("Edit Match:", h.match);
+    const tip = prompt("Edit Tip:", h.tip);
+    const outcome = prompt("Edit Outcome:", h.outcome);
+    if (date && match && tip && outcome) {
+      historyData[i] = { date, match, tip, outcome };
+      localStorage.setItem("history", JSON.stringify(historyData));
+      renderHistory();
+    }
+  }
+  function deleteHistory(i) {
+    historyData.splice(i, 1);
+    localStorage.setItem("history", JSON.stringify(historyData));
+    renderHistory();
   }
 
+  // 💼 Bookmakers
+  let bookmakers = JSON.parse(localStorage.getItem("bookmakers") || "[]");
+  function renderBookmakers() {
+    const list = document.getElementById("bookmaker-list");
+    list.innerHTML = bookmakers.map((b, i) => \`
+      <div class="entry">
+        <span>
+          <img src="\${b.logo}" alt="logo" width="30" style="vertical-align:middle; margin-right:5px;">
+          \${b.name} | \${b.bonus} | <a href="\${b.link}" target="_blank">Link</a>
+        </span>
+        <button class="btn" onclick="editBookmaker(\${i})">Edit</button>
+        <button class="btn btn-danger" onclick="deleteBookmaker(\${i})">Delete</button>
+      </div>\`).join('');
+  }
   function addBookmaker() {
     const name = document.getElementById("book-name").value;
     const logo = document.getElementById("book-logo").value;
     const bonus = document.getElementById("book-bonus").value;
     const link = document.getElementById("book-link").value;
-
     if (!name || !logo || !bonus || !link) return alert("Fill all fields.");
-    let data = JSON.parse(localStorage.getItem("bookmakers") || "[]");
-    data.push({ name, logo, bonus, link });
-    localStorage.setItem("bookmakers", JSON.stringify(data));
-    document.getElementById("book-msg").innerText = "✅ Bookmaker Saved!";
+    bookmakers.push({ name, logo, bonus, link });
+    localStorage.setItem("bookmakers", JSON.stringify(bookmakers));
+    renderBookmakers();
   }
+  function editBookmaker(i) {
+    const b = bookmakers[i];
+    const name = prompt("Edit Name:", b.name);
+    const logo = prompt("Edit Logo:", b.logo);
+    const bonus = prompt("Edit Bonus:", b.bonus);
+    const link = prompt("Edit Link:", b.link);
+    if (name && logo && bonus && link) {
+      bookmakers[i] = { name, logo, bonus, link };
+      localStorage.setItem("bookmakers", JSON.stringify(bookmakers));
+      renderBookmakers();
+    }
+  }
+  function deleteBookmaker(i) {
+    bookmakers.splice(i, 1);
+    localStorage.setItem("bookmakers", JSON.stringify(bookmakers));
+    renderBookmakers();
+  }
+
+  // Initial Render All Sections
+  renderPredictions();
+  renderAccumulator();
+  renderHistory();
+  renderBookmakers();
 </script>
 </body>
 </html>
