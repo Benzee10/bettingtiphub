@@ -136,4 +136,42 @@ a {
 .btn-bet-now:hover {
   background-color: #00c667;
 }
+/* Table styling */
+.table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+}
+
+th {
+  background-color: #2a2a2a;
+}
+
+tr:hover {
+  background-color: #2e2e2e;
+}
+
+td.won {
+  color: #00e676;
+  font-weight: bold;
+}
+
+td.lost {
+  color: #ff5252;
+  font-weight: bold;
+}
 
