@@ -79,13 +79,17 @@
 <body>
 
   <!-- Navbar -->
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="predictions.html">Predictions</a>
-    <a href="accumulator.html">Accumulator</a>
-    <a href="history.html">History</a>
-    <a href="bookmakers.html">Bookmakers</a>
-  </nav>
+  <div class="sidebar" id="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="index.html">Home</a>
+  <a href="predictions.html">Predictions</a>
+  <a href="accumulator.html">Accumulator</a>
+  <a href="history.html">History</a>
+  <a href="bookmakers.html">Bookmakers</a>
+</div>
+
+<div class="menu-button" onclick="openNav()">☰ Menu</div>
+
 
   <!-- Sticky Banner -->
   <div class="banner">
@@ -101,6 +105,15 @@
 
   <!-- WhatsApp CTA -->
   <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
+  <script>
+  function openNav() {
+    document.getElementById("sidebar").style.width = "250px";
+  }
+  function closeNav() {
+    document.getElementById("sidebar").style.width = "0";
+  }
+</script>
+
 
 </body>
 </html>
