@@ -1,10 +1,20 @@
+/* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   background-color: #121212;
   color: #e0e0e0;
   padding-top: 60px;
+  line-height: 1.6;
 }
+
+/* Navigation Bar */
 nav {
   background: #1f1f1f;
   padding: 15px;
@@ -14,38 +24,16 @@ nav {
   z-index: 10;
   box-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
+
 nav a {
   color: #ffffff;
   margin: 0 15px;
   text-decoration: none;
   font-weight: 500;
+  font-size: 16px;
 }
-h1 {
-  text-align: center;
-  margin-top: 10px;
-  color: #ffcc00;
-}
-.predictions .card,
-.bookmaker,
-.accumulator li,
-table {
-  background: #1e1e1e;
-  margin: 10px auto;
-  padding: 15px;
-  max-width: 700px;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.8);
-  border: 1px solid #2a2a2a;
-}
-.btn {
-  background: #ffcc00;
-  color: #121212;
-  padding: 10px 15px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  display: inline-block;
-}
+
+/* Banner */
 .banner {
   background: linear-gradient(90deg, #ffcc00, #ffaa00);
   color: #121212;
@@ -57,6 +45,54 @@ table {
   font-weight: bold;
   z-index: 1000;
 }
+
+/* Heading Fix */
+main {
+  padding: 20px 10px 60px;
+}
+
+main h1 {
+  margin: 40px auto 30px;
+  font-size: 30px;
+  color: #ffcc00;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 2px solid #ffcc00;
+  padding-bottom: 10px;
+  max-width: 90%;
+}
+
+/* Cards and Lists */
+.predictions .card,
+.bookmaker,
+.accumulator li,
+table {
+  background: #1e1e1e;
+  margin: 15px auto;
+  padding: 15px;
+  max-width: 700px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.8);
+  border: 1px solid #2a2a2a;
+}
+
+.accumulator {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Bookmaker Button */
+.btn {
+  background: #ffcc00;
+  color: #121212;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* WhatsApp Button */
 .whatsapp-widget {
   position: fixed;
   bottom: 20px;
@@ -70,28 +106,45 @@ table {
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
+
+/* Table Styles */
 table {
   width: 95%;
   margin: 10px auto;
   border-collapse: collapse;
 }
+
 th, td {
   padding: 12px;
   border: 1px solid #333;
   text-align: center;
 }
+
 th {
   background-color: #292929;
   color: #ffcc00;
 }
-main h1 {
-  margin: 40px auto 20px;
-  font-size: 28px;
-  color: #ffcc00;
-  font-weight: 700;
-  text-align: center;
-  border-bottom: 2px solid #ffcc00;
-  padding-bottom: 10px;
-  max-width: 90%;
-}
 
+/* Responsive Fix */
+@media (max-width: 600px) {
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .whatsapp-widget {
+    right: 10px;
+    bottom: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  main h1 {
+    font-size: 22px;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
