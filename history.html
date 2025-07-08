@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prediction History</title>
+  <title>Bookmakers</title>
   <style>
     body {
       background: #121212;
@@ -42,25 +42,42 @@
     .container {
       padding: 20px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
+    .bookmaker-card {
       background: #1e1e1e;
       border-radius: 8px;
-      overflow: hidden;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
-    th, td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #333;
+    .bookmaker-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
     }
-    th {
-      background-color: #222;
-      color: #00e676;
+    .bookmaker-info {
+      flex: 1;
     }
-    .won { color: #00e676; font-weight: bold; }
-    .lost { color: #f44336; font-weight: bold; }
+    .bookmaker-info h3 {
+      margin: 0 0 5px;
+    }
+    .bookmaker-info p {
+      margin: 0;
+      color: #ccc;
+    }
+    .join-button {
+      background: #00e676;
+      color: #111;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
     .whatsapp-widget {
       position: fixed;
       right: 15px;
@@ -94,41 +111,33 @@
 
 <!-- Main Content -->
 <div class="container">
-  <h1>📊 Prediction History</h1>
-  <div id="history-container"></div>
+  <h1>💼 Recommended Bookmakers</h1>
+  <div id="bookmaker-container"></div>
 </div>
 
 <!-- WhatsApp CTA -->
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
 <script>
-  const historyData = JSON.parse(localStorage.getItem("history") || "[]");
-  const container = document.getElementById("history-container");
+  const bookmakers = JSON.parse(localStorage.getItem("bookmakers") || "[]");
+  const container = document.getElementById("bookmaker-container");
 
-  if (historyData.length === 0) {
-    container.innerHTML = "<p>No history available yet. Check back tomorrow.</p>";
+  if (bookmakers.length === 0) {
+    container.innerHTML = "<p>No bookmakers available yet. Please check back soon.</p>";
   } else {
-    const table = document.createElement("table");
-    table.innerHTML = \`
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Match</th>
-          <th>Tip</th>
-          <th>Outcome</th>
-        </tr>
-      </thead>
-      <tbody>
-        \${historyData.map(item => \`
-          <tr>
-            <td>\${item.date}</td>
-            <td>\${item.match}</td>
-            <td>\${item.tip}</td>
-            <td class="\${item.outcome.toLowerCase()}">\${item.outcome}</td>
-          </tr>\`).join("")}
-      </tbody>
-    \`;
-    container.appendChild(table);
+    bookmakers.forEach(book => {
+      const card = document.createElement("div");
+      card.className = "bookmaker-card";
+      card.innerHTML = \`
+        <img src="\${book.logo}" alt="\${book.name} Logo">
+        <div class="bookmaker-info">
+          <h3>\${book.name}</h3>
+          <p>🎁 \${book.bonus}</p>
+        </div>
+        <a href="\${book.link}" class="join-button" target="_blank">Join Now</a>
+      \`;
+      container.appendChild(card);
+    });
   }
 </script>
 
