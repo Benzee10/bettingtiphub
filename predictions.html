@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Today’s Predictions</title>
+  <title>Today’s Accumulator</title>
   <style>
     body {
       background: #121212;
@@ -42,20 +42,39 @@
     .container {
       padding: 20px;
     }
-    .prediction-card {
+    .acc-card {
       background: #1e1e1e;
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 15px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
-    .prediction-card h3 {
+    .acc-card h3 {
       margin: 0 0 8px;
     }
-    .prediction-card span {
+    .acc-card span {
       color: #ccc;
       display: block;
       margin-top: 5px;
+    }
+    .bet-button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #00e676;
+      color: #111;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .total-odds {
+      background: #1e1e1e;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
     }
     .whatsapp-widget {
       position: fixed;
@@ -88,32 +107,39 @@
   🔥 Want Premium 2 Odds? <a href="https://wa.me/2348037904787" target="_blank">Chat Us on WhatsApp</a>
 </div>
 
-<!-- Page Content -->
+<!-- Main Content -->
 <div class="container">
-  <h1>📈 Today’s Predictions</h1>
-  <div id="predictions-container"></div>
+  <h1>🏆 Today’s Accumulator</h1>
+  <div id="accumulator-container"></div>
+  <div id="total-odds" class="total-odds"></div>
 </div>
 
 <!-- WhatsApp CTA -->
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
 <script>
-  const predictions = JSON.parse(localStorage.getItem('predictions') || '[]');
-  const container = document.getElementById('predictions-container');
+  const accumulator = JSON.parse(localStorage.getItem('accumulator') || '[]');
+  const container = document.getElementById('accumulator-container');
+  const totalOddsBox = document.getElementById('total-odds');
 
-  if (predictions.length === 0) {
-    container.innerHTML = '<p>No predictions available yet. Please check back later.</p>';
+  if (accumulator.length === 0) {
+    container.innerHTML = '<p>No accumulator tips available yet.</p>';
+    totalOddsBox.innerHTML = '';
   } else {
-    predictions.forEach(pred => {
+    let totalOdds = 1;
+    accumulator.forEach(item => {
+      totalOdds *= parseFloat(item.odds);
       const card = document.createElement('div');
-      card.className = 'prediction-card';
+      card.className = 'acc-card';
       card.innerHTML = \`
-        <h3>⚽ \${pred.match}</h3>
-        <span>🕒 Kickoff: \${pred.time}</span>
-        <span>📌 Tip: <strong>\${pred.tip}</strong></span>
+        <h3>⚽ \${item.match}</h3>
+        <span>💡 Tip: <strong>\${item.tip}</strong></span>
+        <span>🎯 Odds: \${item.odds}</span>
+        <a class="bet-button" href="\${item.link}" target="_blank">Bet Now</a>
       \`;
       container.appendChild(card);
     });
+    totalOddsBox.innerHTML = "Total Combined Odds: " + totalOdds.toFixed(2);
   }
 </script>
 
