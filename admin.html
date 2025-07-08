@@ -6,113 +6,139 @@
   <title>Admin Panel</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .admin-section { margin: 30px 0; background: #1e1e1e; padding: 20px; border-radius: 10px; }
+    body { background: #121212; color: #fff; font-family: sans-serif; }
+    .container { padding: 20px; max-width: 800px; margin: auto; }
+    .admin-section { margin: 40px 0; background: #1e1e1e; padding: 20px; border-radius: 10px; }
     .admin-section h2 { margin-bottom: 15px; }
-    .admin-section textarea, .admin-section input { width: 100%; margin-bottom: 10px; padding: 10px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 5px; }
-    .admin-section button { padding: 10px 20px; background: #00e676; color: #111; border: none; border-radius: 5px; font-weight: bold; }
-    .success-msg { color: #00e676; margin-top: 10px; font-weight: bold; }
-    label { display: block; margin-top: 10px; font-weight: bold; }
+    input, select { width: 100%; padding: 10px; margin-bottom: 10px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 5px; }
+    .btn { background: #00e676; color: #111; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+    .row-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .row-group > * { flex: 1 1 45%; }
+    .success { color: #00e676; font-weight: bold; margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <!-- 🔐 Password Prompt -->
-  <script>
-    const pass = prompt("Enter admin password:");
-    if (pass !== "f7b4ebee") {
-      alert("Access denied!");
-      window.location.href = "index.html";
-    }
-  </script>
+<script>
+  const pass = prompt("Enter admin password:");
+  if (pass !== "f7b4ebee") {
+    alert("Access Denied.");
+    location.href = "index.html";
+  }
+</script>
 
-  <!-- ⚙️ Admin Panel -->
-  <main class="container">
-    <h1>🔐 Admin Panel</h1>
+<div class="container">
+  <h1>🔐 Simple Admin Panel</h1>
 
-    <!-- 📈 Predictions Section -->
-    <div class="admin-section">
-      <h2>📈 Today’s Predictions</h2>
-      <textarea id="predictions-json" rows="8"></textarea>
-      <button onclick="savePredictions()">💾 Save Predictions</button>
-      <div id="msg-pred" class="success-msg"></div>
+  <!-- 📈 Predictions -->
+  <div class="admin-section">
+    <h2>📈 Add Prediction</h2>
+    <div class="row-group">
+      <input id="pred-match" placeholder="Match (e.g. Arsenal vs Chelsea)" />
+      <input id="pred-time" placeholder="Kickoff Time (e.g. 20:00)" />
     </div>
+    <input id="pred-tip" placeholder="Tip (e.g. Over 2.5)" />
+    <button class="btn" onclick="addPrediction()">Add Prediction</button>
+    <div id="pred-msg" class="success"></div>
+  </div>
 
-    <!-- 🏆 Accumulator Section -->
-    <div class="admin-section">
-      <h2>🏆 Accumulator (Max 4)</h2>
-      <textarea id="accumulator-json" rows="8"></textarea>
-      <button onclick="saveAccumulator()">💾 Save Accumulator</button>
-      <div id="msg-acc" class="success-msg"></div>
+  <!-- 🏆 Accumulator -->
+  <div class="admin-section">
+    <h2>🏆 Add Accumulator Match (Max 4)</h2>
+    <div class="row-group">
+      <input id="acc-match" placeholder="Match" />
+      <input id="acc-tip" placeholder="Tip" />
     </div>
-
-    <!-- 📊 History Section -->
-    <div class="admin-section">
-      <h2>📊 Prediction History</h2>
-      <textarea id="history-json" rows="8"></textarea>
-      <button onclick="saveHistory()">💾 Save History</button>
-      <div id="msg-hist" class="success-msg"></div>
+    <div class="row-group">
+      <input id="acc-odds" placeholder="Odds (e.g. 1.55)" />
+      <input id="acc-link" placeholder="Affiliate Link" />
     </div>
+    <button class="btn" onclick="addAccumulator()">Add Accumulator</button>
+    <div id="acc-msg" class="success"></div>
+  </div>
 
-    <!-- 💼 Bookmakers Section -->
-    <div class="admin-section">
-      <h2>💼 Bookmakers</h2>
-      <textarea id="bookmakers-json" rows="8"></textarea>
-      <button onclick="saveBookmakers()">💾 Save Bookmakers</button>
-      <div id="msg-book" class="success-msg"></div>
+  <!-- 📊 History -->
+  <div class="admin-section">
+    <h2>📊 Add to History</h2>
+    <div class="row-group">
+      <input id="hist-date" type="date" />
+      <input id="hist-match" placeholder="Match" />
     </div>
-  </main>
+    <input id="hist-tip" placeholder="Tip" />
+    <select id="hist-outcome">
+      <option value="">Select Outcome</option>
+      <option value="Won">Won</option>
+      <option value="Lost">Lost</option>
+    </select>
+    <button class="btn" onclick="addHistory()">Add History</button>
+    <div id="hist-msg" class="success"></div>
+  </div>
 
-  <!-- 💬 WhatsApp Floating Button -->
-  <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬</a>
+  <!-- 💼 Bookmakers -->
+  <div class="admin-section">
+    <h2>💼 Add Bookmaker</h2>
+    <input id="book-name" placeholder="Bookmaker Name" />
+    <input id="book-logo" placeholder="Logo URL" />
+    <input id="book-bonus" placeholder="Bonus Offer" />
+    <input id="book-link" placeholder="Affiliate Link" />
+    <button class="btn" onclick="addBookmaker()">Add Bookmaker</button>
+    <div id="book-msg" class="success"></div>
+  </div>
+</div>
 
-  <script>
-    // Preload data into textareas
-    document.getElementById("predictions-json").value = localStorage.getItem("predictions") || "[]";
-    document.getElementById("accumulator-json").value = localStorage.getItem("accumulator") || "[]";
-    document.getElementById("history-json").value = localStorage.getItem("history") || "[]";
-    document.getElementById("bookmakers-json").value = localStorage.getItem("bookmakers") || "[]";
+<script>
+  function addPrediction() {
+    const match = document.getElementById("pred-match").value;
+    const time = document.getElementById("pred-time").value;
+    const tip = document.getElementById("pred-tip").value;
 
-    // Save functions
-    function savePredictions() {
-      try {
-        const data = JSON.parse(document.getElementById("predictions-json").value);
-        localStorage.setItem("predictions", JSON.stringify(data));
-        document.getElementById("msg-pred").innerText = "✅ Saved successfully!";
-      } catch {
-        alert("❌ Invalid JSON in Predictions");
-      }
-    }
+    if (!match || !time || !tip) return alert("Please fill all fields.");
 
-    function saveAccumulator() {
-      try {
-        const data = JSON.parse(document.getElementById("accumulator-json").value);
-        if (data.length > 4) return alert("❌ Only 4 matches allowed.");
-        localStorage.setItem("accumulator", JSON.stringify(data));
-        document.getElementById("msg-acc").innerText = "✅ Saved successfully!";
-      } catch {
-        alert("❌ Invalid JSON in Accumulator");
-      }
-    }
+    let data = JSON.parse(localStorage.getItem("predictions") || "[]");
+    data.push({ match, time, tip });
+    localStorage.setItem("predictions", JSON.stringify(data));
+    document.getElementById("pred-msg").innerText = "✅ Prediction Saved!";
+  }
 
-    function saveHistory() {
-      try {
-        const data = JSON.parse(document.getElementById("history-json").value);
-        localStorage.setItem("history", JSON.stringify(data));
-        document.getElementById("msg-hist").innerText = "✅ Saved successfully!";
-      } catch {
-        alert("❌ Invalid JSON in History");
-      }
-    }
+  function addAccumulator() {
+    const match = document.getElementById("acc-match").value;
+    const tip = document.getElementById("acc-tip").value;
+    const odds = parseFloat(document.getElementById("acc-odds").value);
+    const link = document.getElementById("acc-link").value;
 
-    function saveBookmakers() {
-      try {
-        const data = JSON.parse(document.getElementById("bookmakers-json").value);
-        localStorage.setItem("bookmakers", JSON.stringify(data));
-        document.getElementById("msg-book").innerText = "✅ Saved successfully!";
-      } catch {
-        alert("❌ Invalid JSON in Bookmakers");
-      }
-    }
-  </script>
+    if (!match || !tip || !odds || !link) return alert("Fill all fields.");
+    let data = JSON.parse(localStorage.getItem("accumulator") || "[]");
+    if (data.length >= 4) return alert("Max 4 accumulator matches.");
+    data.push({ match, tip, odds, link });
+    localStorage.setItem("accumulator", JSON.stringify(data));
+    document.getElementById("acc-msg").innerText = "✅ Accumulator Saved!";
+  }
+
+  function addHistory() {
+    const date = document.getElementById("hist-date").value;
+    const match = document.getElementById("hist-match").value;
+    const tip = document.getElementById("hist-tip").value;
+    const outcome = document.getElementById("hist-outcome").value;
+
+    if (!date || !match || !tip || !outcome) return alert("Fill all fields.");
+    let data = JSON.parse(localStorage.getItem("history") || "[]");
+    data.push({ date, match, tip, outcome });
+    localStorage.setItem("history", JSON.stringify(data));
+    document.getElementById("hist-msg").innerText = "✅ History Updated!";
+  }
+
+  function addBookmaker() {
+    const name = document.getElementById("book-name").value;
+    const logo = document.getElementById("book-logo").value;
+    const bonus = document.getElementById("book-bonus").value;
+    const link = document.getElementById("book-link").value;
+
+    if (!name || !logo || !bonus || !link) return alert("Fill all fields.");
+    let data = JSON.parse(localStorage.getItem("bookmakers") || "[]");
+    data.push({ name, logo, bonus, link });
+    localStorage.setItem("bookmakers", JSON.stringify(data));
+    document.getElementById("book-msg").innerText = "✅ Bookmaker Saved!";
+  }
+</script>
 </body>
 </html>
