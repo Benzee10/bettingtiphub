@@ -108,3 +108,32 @@ a {
   z-index: 999;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
+/* Total odds section */
+.total-odds {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Bet Now button */
+.bet-now-button {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.btn-bet-now {
+  background-color: #00e676;
+  color: #111;
+  padding: 15px 25px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  display: inline-block;
+  transition: background 0.3s;
+}
+
+.btn-bet-now:hover {
+  background-color: #00c667;
+}
+
