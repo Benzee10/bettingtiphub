@@ -15,16 +15,17 @@
   </div>
 
   <!-- 🔝 Navigation -->
-  <nav class="navbar">
-    <h1>⚽ Predict. Win. Repeat.</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="predictions.html">Predictions</a></li>
-      <li><a href="accumulator.html">Accumulator</a></li>
-      <li><a href="history.html">History</a></li>
-      <li><a href="bookmakers.html">Bookmakers</a></li>
-    </ul>
-  </nav>
+  <div class="sidebar" id="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="index.html">Home</a>
+  <a href="predictions.html">Predictions</a>
+  <a href="accumulator.html">Accumulator</a>
+  <a href="history.html">History</a>
+  <a href="bookmakers.html">Bookmakers</a>
+</div>
+
+<div class="menu-button" onclick="openNav()">☰ Menu</div>
+
 
   <!-- 🏆 Accumulator Section -->
   <main class="container">
@@ -41,5 +42,14 @@
 
   <script src="js/main.js"></script>
   <script src="js/accumulator.js"></script>
+  <script>
+  function openNav() {
+    document.getElementById("sidebar").style.width = "250px";
+  }
+  function closeNav() {
+    document.getElementById("sidebar").style.width = "0";
+  }
+</script>
+
 </body>
 </html>
