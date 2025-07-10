@@ -29,6 +29,12 @@
 async function addPrediction(prediction) {
   await db.collection("predictions").add(prediction);
 }
+  // Example:
+addPrediction({
+  match: "Man Utd vs Chelsea",
+  time: "20:00",
+  tip: "Over 2.5 Goals"
+});
 </script>
 
 <h1>🔐 Admin Panel</h1>
