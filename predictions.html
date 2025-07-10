@@ -134,32 +134,48 @@
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
 <!-- Script Section -->
-<script>
-  function openNav() {
-    document.getElementById("sidebar").style.width = "250px";
-  }
-  function closeNav() {
-    document.getElementById("sidebar").style.width = "0";
-  }
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-  const predictions = JSON.parse(localStorage.getItem('predictions') || '[]');
-  const container = document.getElementById('predictions-container');
+  const firebaseConfig = {
+    apiKey: "AIzaSyBLdnrlmIiTobvOfDxclALf-esNd5YT4FY",
+    authDomain: "betting-tip-hub.firebaseapp.com",
+    projectId: "betting-tip-hub",
+    storageBucket: "betting-tip-hub.firebasestorage.app",
+    messagingSenderId: "431155523012",
+    appId: "1:431155523012:web:3a375d2038c59c18f80891",
+    measurementId: "G-K7C99C8DWZ"
+  };
 
-  if (predictions.length === 0) {
-    container.innerHTML = '<p>No predictions available yet. Please check back later.</p>';
-  } else {
-    predictions.forEach(pred => {
-      const card = document.createElement('div');
-      card.className = 'prediction-card';
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const container = document.getElementById("predictions-container");
+
+  async function loadPredictions() {
+    const querySnapshot = await getDocs(collection(db, "predictions"));
+    
+    if (querySnapshot.empty) {
+      container.innerHTML = "<p>No predictions available yet.</p>";
+      return;
+    }
+
+    querySnapshot.forEach(doc => {
+      const data = doc.data();
+      const card = document.createElement("div");
+      card.className = "prediction-card";
       card.innerHTML = `
-        <h3>⚽ ${pred.match}</h3>
-        <span>🕒 Kickoff: ${pred.time}</span>
-        <span>📌 Tip: <strong>${pred.tip}</strong></span>
+        <h3>⚽ ${data.match}</h3>
+        <span>🕒 Kickoff: ${data.time}</span>
+        <span>📌 Tip: <strong>${data.tip}</strong></span>
       `;
       container.appendChild(card);
     });
   }
-</script>
 
+  loadPredictions();
+</script>
 </body>
 </html>
