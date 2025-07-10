@@ -144,7 +144,25 @@
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
 <!-- Script Section -->
-<script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBLdnrlmIiTobvOfDxclALf-esNd5YT4FY",
+    authDomain: "betting-tip-hub.firebaseapp.com",
+    projectId: "betting-tip-hub",
+    storageBucket: "betting-tip-hub.firebasestorage.app",
+    messagingSenderId: "431155523012",
+    appId: "1:431155523012:web:3a375d2038c59c18f80891",
+    measurementId: "G-K7C99C8DWZ"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+
   function openNav() {
     document.getElementById("sidebar").style.width = "250px";
   }
@@ -152,12 +170,29 @@
     document.getElementById("sidebar").style.width = "0";
   }
 
-  const historyData = JSON.parse(localStorage.getItem("history") || "[]");
   const container = document.getElementById("history-container");
+  const historyRef = collection(db, "history");
 
-  if (historyData.length === 0) {
-    container.innerHTML = "<p>No history available yet. Check back tomorrow.</p>";
-  } else {
+  async function loadHistory() {
+    const snapshot = await getDocs(historyRef);
+    if (snapshot.empty) {
+      container.innerHTML = "<p>No history available yet. Check back tomorrow.</p>";
+      return;
+    }
+
+    const rows = [];
+    snapshot.forEach(doc => {
+      const h = doc.data();
+      rows.push(`
+        <tr>
+          <td>${h.date}</td>
+          <td>${h.match}</td>
+          <td>${h.tip}</td>
+          <td class="${h.outcome.toLowerCase()}">${h.outcome}</td>
+        </tr>
+      `);
+    });
+
     const table = document.createElement("table");
     table.innerHTML = `
       <thead>
@@ -168,18 +203,12 @@
           <th>Outcome</th>
         </tr>
       </thead>
-      <tbody>
-        ${historyData.map(item => `
-          <tr>
-            <td>${item.date}</td>
-            <td>${item.match}</td>
-            <td>${item.tip}</td>
-            <td class="${item.outcome.toLowerCase()}">${item.outcome}</td>
-          </tr>`).join("")}
-      </tbody>
+      <tbody>${rows.join("")}</tbody>
     `;
     container.appendChild(table);
   }
+
+  loadHistory();
 </script>
 
 </body>
