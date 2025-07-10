@@ -154,7 +154,29 @@
 <!-- WhatsApp CTA -->
 <a href="https://wa.me/2348037904787" class="whatsapp-widget" target="_blank">💬 Chat for 2 Odds</a>
 
-<script>
+<script type="module">
+  // Firebase SDKs
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBLdnrlmIiTobvOfDxclALf-esNd5YT4FY",
+    authDomain: "betting-tip-hub.firebaseapp.com",
+    projectId: "betting-tip-hub",
+    storageBucket: "betting-tip-hub.firebasestorage.app",
+    messagingSenderId: "431155523012",
+    appId: "1:431155523012:web:3a375d2038c59c18f80891",
+    measurementId: "G-K7C99C8DWZ"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+
+  // Sidebar controls
   function openNav() {
     document.getElementById("sidebar").style.width = "250px";
   }
@@ -162,13 +184,19 @@
     document.getElementById("sidebar").style.width = "0";
   }
 
-  const bookmakers = JSON.parse(localStorage.getItem("bookmakers") || "[]");
+  // Load bookmakers from Firestore
   const container = document.getElementById("bookmaker-container");
+  const bookmakersRef = collection(db, "bookmakers");
 
-  if (bookmakers.length === 0) {
-    container.innerHTML = "<p>No bookmakers available yet. Please check back soon.</p>";
-  } else {
-    bookmakers.forEach(book => {
+  async function loadBookmakers() {
+    const snapshot = await getDocs(bookmakersRef);
+    if (snapshot.empty) {
+      container.innerHTML = "<p>No bookmakers available yet. Please check back soon.</p>";
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const book = doc.data();
       const card = document.createElement("div");
       card.className = "bookmaker-card";
       card.innerHTML = `
@@ -182,7 +210,8 @@
       container.appendChild(card);
     });
   }
-</script>
 
+  loadBookmakers();
+</script>
 </body>
 </html>
