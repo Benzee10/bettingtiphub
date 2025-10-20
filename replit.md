@@ -86,6 +86,13 @@ Files to update (WhatsApp number only):
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-20: Fixed dark mode contrast issue for benefit items
+  - Added --benefit-bg CSS variable for light/dark mode compatibility
+  - Light mode: Uses soft pink gradient (#fff5f7 to #ffeef8)
+  - Dark mode: Uses darker purple gradient (#3a2a34 to #4a2a3f)
+  - Applied to all 4 ebook pages, _TEMPLATE.html, and create-ebook.html generator
+  - Benefit text now clearly visible in both light and dark modes
+  - Border colors now use CSS variables for consistent theming
 - 2025-10-20: Successfully imported and configured for Replit environment
   - Python 3.12 is available and working
   - Workflow configured to run server on port 5000 (0.0.0.0)

@@ -24,6 +24,7 @@
             --btn-gradient: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
             --shadow-light: rgba(0,0,0,0.1);
             --shadow-hover: rgba(255, 107, 157, 0.3);
+            --benefit-bg: linear-gradient(135deg, #fff5f7 0%, #ffeef8 100%);
         }
 
         [data-theme="dark"] {
@@ -42,6 +43,7 @@
             --btn-gradient: linear-gradient(135deg, #d4478a 0%, #e896b3 100%);
             --shadow-light: rgba(255,255,255,0.05);
             --shadow-hover: rgba(255, 139, 171, 0.3);
+            --benefit-bg: linear-gradient(135deg, #3a2a34 0%, #4a2a3f 100%);
         }
 
         * {
@@ -713,6 +715,7 @@
             --pink-secondary: #ffc2d4;
             --shadow-light: rgba(0,0,0,0.08);
             --shadow-hover: rgba(255, 107, 157, 0.2);
+            --benefit-bg: linear-gradient(135deg, #fff5f7 0%, #ffeef8 100%);
         }
 
         [data-theme="dark"] {
@@ -726,6 +729,7 @@
             --pink-secondary: #ffc2d4;
             --shadow-light: rgba(255,255,255,0.05);
             --shadow-hover: rgba(255, 139, 171, 0.3);
+            --benefit-bg: linear-gradient(135deg, #3a2a34 0%, #4a2a3f 100%);
         }
 
         @keyframes fadeInUp {
@@ -927,7 +931,7 @@
             align-items: center;
             gap: 20px;
             padding: 20px;
-            background: linear-gradient(135deg, #fff5f7 0%, #ffeef8 100%);
+            background: var(--benefit-bg);
             border-radius: 15px;
             border-left: 5px solid var(--pink-primary);
         }
