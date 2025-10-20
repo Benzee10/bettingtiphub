@@ -323,6 +323,207 @@
             animation: pulse 1s ease-in-out infinite;
         }
 
+        /* Stats Counter Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: var(--card-bg);
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--pink-primary);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 60px 30px;
+            margin: 60px auto;
+            max-width: 1100px;
+            box-shadow: 0 10px 40px var(--shadow-light);
+        }
+
+        .testimonials-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--benefit-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid var(--pink-primary);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-hover);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--pink-primary);
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.2em;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .testimonial-stars {
+            color: #FFD700;
+            font-size: 1.1em;
+        }
+
+        .testimonial-text {
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Success Stories Section */
+        .success-stories-section {
+            margin: 60px auto;
+            max-width: 1000px;
+        }
+
+        .success-stories-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .success-story {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+        }
+
+        .success-story-header {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .before-after {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .before-after-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        .before-label {
+            color: #ff6b6b;
+        }
+
+        .after-label {
+            color: #51cf66;
+        }
+
+        .success-arrow {
+            font-size: 2em;
+            color: var(--pink-primary);
+        }
+
+        .success-story-content {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .success-name {
+            font-weight: 600;
+            color: var(--pink-primary);
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        /* Trust Badges Section */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 50px auto;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--pink-secondary) 0%, var(--pink-primary) 100%);
+            border-radius: 25px;
+            max-width: 1000px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .badge-icon {
+            font-size: 2.5em;
+        }
+
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -346,6 +547,28 @@
             .ebooks-grid {
                 grid-template-columns: 1fr;
             }
+
+            .testimonials-section h2,
+            .success-stories-section h2 {
+                font-size: 2em;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+
+            .success-story-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .trust-badges {
+                gap: 20px;
+            }
+
+            .badge {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
@@ -361,6 +584,110 @@
         <div class="intro-section fade-in-up">
             <h2>Welcome!</h2>
             <p>I'm Lucy, and I help men understand what women really want. Browse my collection of ebooks below — each one packed with honest insights, practical advice, and real-world tips to help you attract and keep the woman of your dreams.</p>
+        </div>
+
+        <!-- Stats Counter Section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">★★★★★ Happy Customers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4.9/5</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+            <div class="badge">
+                <div class="badge-icon">✓</div>
+                <div>100% Satisfaction Guaranteed</div>
+            </div>
+            <div class="badge">
+                <div class="badge-icon">🔒</div>
+                <div>Secure Payment</div>
+            </div>
+            <div class="badge">
+                <div class="badge-icon">⚡</div>
+                <div>Instant Delivery</div>
+            </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div class="testimonials-section">
+            <h2>What My Customers Say 💬</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael" class="testimonial-photo">
+                        <div class="testimonial-info">
+                            <h4>Michael R.</h4>
+                            <div class="testimonial-stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Lucy's texting guide completely changed my dating life. I went from getting ghosted to having multiple dates lined up. Her advice is practical and actually works!"</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="James" class="testimonial-photo">
+                        <div class="testimonial-info">
+                            <h4>James T.</h4>
+                            <div class="testimonial-stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Finally! A woman who tells it like it is. No BS, just real advice that helped me understand what I was doing wrong. Worth every penny."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="David" class="testimonial-photo">
+                        <div class="testimonial-info">
+                            <h4>David K.</h4>
+                            <div class="testimonial-stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I was skeptical at first, but Lucy's insights are gold. I'm now in a happy relationship and couldn't have done it without her guidance."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Stories Section -->
+        <div class="success-stories-section">
+            <h2>Real Success Stories 💝</h2>
+            
+            <div class="success-story">
+                <div class="success-story-header">
+                    <span class="before-after-label before-label">BEFORE</span>
+                    <span class="success-arrow">→</span>
+                    <span class="before-after-label after-label">AFTER</span>
+                </div>
+                <div class="success-story-content">
+                    <strong>Before:</strong> Single for 2 years, couldn't get past the first date, constantly being ghosted after texting.
+                    <br><br>
+                    <strong>After:</strong> Went on 5 dates in one month, finally understood what women actually want, now in a committed relationship with an amazing woman. Lucy's ebooks showed me exactly where I was going wrong and how to fix it.
+                    <div class="success-name">— Marcus, 28</div>
+                </div>
+            </div>
+
+            <div class="success-story">
+                <div class="success-story-header">
+                    <span class="before-after-label before-label">BEFORE</span>
+                    <span class="success-arrow">→</span>
+                    <span class="before-after-label after-label">AFTER</span>
+                </div>
+                <div class="success-story-content">
+                    <strong>Before:</strong> Nervous on every first date, didn't know what to talk about, rarely got a second date.
+                    <br><br>
+                    <strong>After:</strong> Gained massive confidence, learned how to read body language, and my dates actually text ME asking to meet again. The first date confidence guide changed everything for me.
+                    <div class="success-name">— Ryan, 32</div>
+                </div>
+            </div>
         </div>
 
         <div class="ebooks-grid" id="ebooksGrid">
@@ -478,6 +805,30 @@
         ebookCards.forEach(card => {
             observer.observe(card);
         });
+
+        // Observe stats section
+        const statItems = document.querySelectorAll('.stat-item');
+        statItems.forEach(item => {
+            observer.observe(item);
+        });
+
+        // Observe testimonials section
+        const testimonialsSection = document.querySelector('.testimonials-section');
+        if (testimonialsSection) {
+            observer.observe(testimonialsSection);
+        }
+
+        // Observe success stories
+        const successStories = document.querySelectorAll('.success-story');
+        successStories.forEach(story => {
+            observer.observe(story);
+        });
+
+        // Observe trust badges
+        const trustBadges = document.querySelector('.trust-badges');
+        if (trustBadges) {
+            observer.observe(trustBadges);
+        }
 
         // Observe WhatsApp section
         const whatsappSection = document.querySelector('.whatsapp-section');
