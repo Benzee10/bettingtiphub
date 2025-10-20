@@ -1,0 +1,62 @@
+HOW TO ADD A NEW EBOOK
+======================
+
+Follow these simple steps to add a new ebook to your site:
+
+STEP 1: Create the Ebook Page
+------------------------------
+1. Copy the file "_TEMPLATE.html"
+2. Rename it to something like "your-ebook-name.html" (use lowercase, hyphens instead of spaces)
+3. Open the file and edit these sections (search for "EDIT:" comments):
+
+   - Title and subtitle in the header
+   - Ebook cover title
+   - Price (appears twice - in cover and payment section)
+   - Description paragraphs
+   - 3-4 benefit items (you can add/remove benefit items as needed)
+   - Payment details (account number, bank name)
+   - WhatsApp message text
+   - WhatsApp link text
+
+4. Update the WhatsApp number: Replace "234XXXXXXXXXX" with your actual number
+
+
+STEP 2: Add to Homepage
+-----------------------
+1. Open "index.html" (the one in the main folder, not in ebooks folder)
+2. Find the section that says "<!-- Add more ebook cards here -->"
+3. Copy this code and paste it there:
+
+            <div class="ebook-card">
+                <h3>YOUR EBOOK TITLE</h3>
+                <div class="price">₦0,000</div>
+                <p>Short description of what this ebook is about.</p>
+                <a href="ebooks/your-ebook-name.html" class="btn">View Details</a>
+            </div>
+
+4. Edit:
+   - "YOUR EBOOK TITLE" - the title
+   - "₦0,000" - the price
+   - Short description
+   - "ebooks/your-ebook-name.html" - must match the filename you created in Step 1
+
+
+STEP 3: Update Global Settings
+-------------------------------
+Don't forget to update in BOTH files (homepage and ebook page):
+- WhatsApp number: Replace "234XXXXXXXXXX" with your number
+- Payment account details
+
+
+TIPS
+----
+- Keep filenames simple: use lowercase and hyphens (example: relationship-advice.html)
+- Make sure the "href" in index.html matches your filename exactly
+- You can have as many ebooks as you want
+- Each ebook gets its own unique shareable link
+
+
+EXAMPLE
+-------
+If you create "ebooks/flirting-secrets.html", share it as:
+https://your-replit-url.com/ebooks/flirting-secrets.html

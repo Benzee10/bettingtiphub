@@ -1,57 +1,77 @@
-# Lucy - Dating Tips Ebook Landing Page
+# Lucy - Dating & Relationship Ebooks Landing Pages
 
-A beautiful, feminine landing page designed to promote Lucy's ebook "Dating Tips for Men" with manual payment collection via WhatsApp.
+A beautiful, feminine landing page system for promoting multiple ebooks with WhatsApp integration and manual payment collection.
+
+## Structure
+
+```
+/
+├── index.html                          # Homepage listing all ebooks
+├── server.py                           # Python HTTP server
+├── ebooks/
+│   ├── dating-tips-for-men.html       # Example ebook page
+│   ├── _TEMPLATE.html                 # Template for new ebooks
+│   └── HOW-TO-ADD-NEW-EBOOK.txt       # Instructions
+```
+
+## How to Add New Ebooks
+
+### Quick Start
+1. Copy `ebooks/_TEMPLATE.html` 
+2. Rename it (example: `ebooks/relationship-advice.html`)
+3. Edit all sections marked with `<!-- EDIT: -->` comments
+4. Add a card for it on the homepage (`index.html`)
+
+### Detailed Instructions
+See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` for step-by-step guide.
+
+## Before Publishing
+
+### Update These in ALL Files:
+
+1. **WhatsApp Number**
+   - Find: `234XXXXXXXXXX`
+   - Replace with your actual number (with country code, no +)
+   - Example: `2348012345678`
+
+2. **Payment Account**
+   - Account number (currently `0123456789`)
+   - Bank name (currently `Opay`)
+   - Account holder (currently `Joseph John`)
+
+### Files to Update:
+- `index.html` - homepage
+- `ebooks/dating-tips-for-men.html` - example ebook
+- `ebooks/_TEMPLATE.html` - template for future ebooks
+- Any new ebook pages you create
 
 ## Features
 
-- Elegant, feminine design with soft pink gradients
-- Mobile-first responsive layout
-- Clear call-to-action for WhatsApp contact
-- Payment instructions prominently displayed
-- Professional typography (Playfair Display + Poppins)
+- **Homepage**: Lists all your ebooks with cards
+- **Individual Ebook Pages**: Each ebook gets its own unique shareable link
+- **Responsive Design**: Looks great on mobile and desktop
+- **Feminine Aesthetic**: Soft pink gradients, elegant fonts
+- **WhatsApp Integration**: Direct messaging for payment and delivery
+- **Template System**: Easy to add unlimited ebooks
 
-## Customization
+## Sharing Links
 
-Before publishing, update these placeholder values in `index.html`:
-
-### WhatsApp Number
-Line 242: Replace `234XXXXXXXXXX` with your actual WhatsApp number (with country code, no +)
-
-Example: For +234 801 234 5678, use: `2348012345678`
-
-### Payment Details
-Line 195-197: Update the payment account information:
-- Account number: Currently `0123456789`
-- Bank name: Currently `Opay`
-- Account name: Currently `Joseph John`
-
-### Optional: Telegram Link
-If you want to add a Telegram link, add it in the footer section (around line 248).
-
-## How It Works
-
-1. Visitors read about the ebook and its benefits
-2. They see the price (₦2,500) and payment instructions
-3. They click "Chat Lucy on WhatsApp" button
-4. After paying, they message "Paid for Ebook" to receive the ebook
+Each ebook has its own unique URL:
+- Homepage: `https://your-site.com/`
+- Dating Tips: `https://your-site.com/ebooks/dating-tips-for-men.html`
+- Your New Ebook: `https://your-site.com/ebooks/your-file-name.html`
 
 ## Publishing
 
-When ready to publish:
-1. Update the WhatsApp number and payment details
-2. Click the "Deploy" button in Replit
-3. Share your public URL with potential customers
+1. Update WhatsApp number and payment details in all files
+2. Test all pages locally
+3. Click "Deploy" button in Replit
+4. Share your links on social media, WhatsApp status, etc.
 
-## Design Notes
+## Tips
 
-- Uses soft romantic color palette (pink, blush, white)
-- Feminine but professional aesthetic
-- Clean, minimal layout focused on conversion
-- Optimized for mobile viewing
-- No external dependencies (except Google Fonts)
-
-## Technical Details
-
-- Pure HTML/CSS (no JavaScript needed)
-- Python HTTP server on port 5000
-- Configured for Replit deployment
+- Keep ebook filenames simple (lowercase, use hyphens)
+- Each ebook is self-contained (no shared navigation needed)
+- You can create as many ebooks as you want
+- Update prices individually for each ebook
+- Customize benefits/features for each ebook's audience
