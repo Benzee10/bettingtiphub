@@ -16,7 +16,15 @@ A beautiful, feminine landing page system for promoting multiple ebooks with Wha
 
 ## How to Add New Ebooks
 
-### Quick Start
+### Method 1: Using the Ebook Generator (EASIEST!) ✨
+1. Go to `/create-ebook.html` in your browser
+2. Fill out the simple form with your ebook details
+3. Click "Generate Ebook Files"
+4. Download the generated HTML file and save it in the `ebooks/` folder
+5. Copy the homepage card code and paste it in `index.html`
+6. Done! No coding required!
+
+### Method 2: Manual Template Method
 1. Copy `ebooks/_TEMPLATE.html` 
 2. Rename it (example: `ebooks/relationship-advice.html`)
 3. Edit all sections marked with `<!-- EDIT: -->` comments

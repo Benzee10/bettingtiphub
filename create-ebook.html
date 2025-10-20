@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Ebook - Lucy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #ff6b9d;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #ff6b9d;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .helper-text {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffe8f0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #ff6b9d;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .benefits-container {
+            background: #fff5f7;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+
+        .benefit-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .benefit-input input {
+            flex: 1;
+        }
+
+        .emoji-select {
+            width: 60px;
+            padding: 12px 5px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.3);
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+
+        .result-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        .result-section h3 {
+            color: #ff6b9d;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 20px;
+        }
+
+        .copy-btn {
+            background: #25D366;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 15px;
+        }
+
+        .download-btn {
+            background: #ff6b9d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .instructions {
+            background: #fff5f7;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #ff6b9d;
+        }
+
+        .instructions h4 {
+            color: #ff6b9d;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #ff6b9d;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Homepage</a>
+        
+        <h1>Create New Ebook 💕</h1>
+        <p class="subtitle">Fill out the form below to generate your ebook page instantly</p>
+
+        <form id="ebookForm">
+            <div class="form-group">
+                <label>Ebook Title *</label>
+                <input type="text" id="title" required placeholder="e.g., Texting Secrets for Men">
+                <p class="helper-text">The main title of your ebook</p>
+            </div>
+
+            <div class="form-group">
+                <label>Subtitle *</label>
+                <input type="text" id="subtitle" required placeholder="e.g., Learn how to text women and keep them interested">
+                <p class="helper-text">A compelling subtitle that hooks readers</p>
+            </div>
+
+            <div class="form-group">
+                <label>File Name *</label>
+                <input type="text" id="filename" required placeholder="e.g., texting-secrets-for-men">
+                <p class="helper-text">Use lowercase letters and hyphens only (no spaces). This will be your URL.</p>
+            </div>
+
+            <div class="form-group">
+                <label>Price (₦) *</label>
+                <input type="number" id="price" required placeholder="2500" min="0">
+                <p class="helper-text">Price in Naira</p>
+            </div>
+
+            <div class="form-group">
+                <label>Cover Title *</label>
+                <input type="text" id="coverTitle" required placeholder="e.g., Texting Secrets">
+                <p class="helper-text">Short title for the ebook cover (1-3 words)</p>
+            </div>
+
+            <div class="form-group">
+                <label>Description Paragraph 1 *</label>
+                <textarea id="desc1" required placeholder="This ebook reveals..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Description Paragraph 2 *</label>
+                <textarea id="desc2" required placeholder="Written from a woman's point of view..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Description Paragraph 3 *</label>
+                <textarea id="desc3" required placeholder="No games. No tricks..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Benefits / What's Inside (3-4 items) *</label>
+                <div class="benefits-container">
+                    <div class="benefit-input">
+                        <input type="text" class="emoji-select" value="💖" maxlength="2">
+                        <input type="text" id="benefit1" required placeholder="First key benefit">
+                    </div>
+                    <div class="benefit-input">
+                        <input type="text" class="emoji-select" value="🚫" maxlength="2">
+                        <input type="text" id="benefit2" required placeholder="Second key benefit">
+                    </div>
+                    <div class="benefit-input">
+                        <input type="text" class="emoji-select" value="💪" maxlength="2">
+                        <input type="text" id="benefit3" required placeholder="Third key benefit">
+                    </div>
+                    <div class="benefit-input">
+                        <input type="text" class="emoji-select" value="🎁" maxlength="2">
+                        <input type="text" id="benefit4" placeholder="Fourth benefit (optional)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Message *</label>
+                <input type="text" id="paymentMsg" required placeholder="Paid for Texting Secrets Ebook">
+                <p class="helper-text">What customers should message you after payment</p>
+            </div>
+
+            <div class="form-group">
+                <label>WhatsApp Message Text *</label>
+                <input type="text" id="whatsappMsg" required placeholder="I want to buy the Texting Secrets ebook!">
+                <p class="helper-text">Pre-filled message when customers click WhatsApp button</p>
+            </div>
+
+            <div class="form-group">
+                <label>Short Description (for homepage card) *</label>
+                <textarea id="shortDesc" required placeholder="A brief 1-2 sentence description for the homepage"></textarea>
+            </div>
+
+            <button type="submit" class="btn">✨ Generate Ebook Files</button>
+        </form>
+
+        <div id="result" class="result-section">
+            <h3>🎉 Success! Your ebook files are ready!</h3>
+            
+            <div class="instructions">
+                <h4>📋 What to do next:</h4>
+                <ol>
+                    <li>Click "Download Ebook Page" below to save the HTML file</li>
+                    <li>Save it in the <code>ebooks/</code> folder with the filename you specified</li>
+                    <li>Copy the "Homepage Card Code" and paste it in <code>index.html</code> where it says "Add more ebook cards here"</li>
+                    <li>That's it! Your new ebook is live!</li>
+                </ol>
+            </div>
+
+            <button class="download-btn" id="downloadBtn">📥 Download Ebook Page</button>
+            <button class="copy-btn" id="copyCardBtn">📋 Copy Homepage Card Code</button>
+
+            <div style="margin-top: 30px;">
+                <h4 style="color: #ff6b9d; margin-bottom: 10px;">Homepage Card Code:</h4>
+                <textarea id="cardCode" readonly style="width: 100%; min-height: 150px; font-family: monospace; font-size: 0.9em;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ebookForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                title: document.getElementById('title').value,
+                subtitle: document.getElementById('subtitle').value,
+                filename: document.getElementById('filename').value,
+                price: document.getElementById('price').value,
+                coverTitle: document.getElementById('coverTitle').value,
+                desc1: document.getElementById('desc1').value,
+                desc2: document.getElementById('desc2').value,
+                desc3: document.getElementById('desc3').value,
+                benefit1: {
+                    emoji: document.querySelectorAll('.emoji-select')[0].value,
+                    text: document.getElementById('benefit1').value
+                },
+                benefit2: {
+                    emoji: document.querySelectorAll('.emoji-select')[1].value,
+                    text: document.getElementById('benefit2').value
+                },
+                benefit3: {
+                    emoji: document.querySelectorAll('.emoji-select')[2].value,
+                    text: document.getElementById('benefit3').value
+                },
+                benefit4: {
+                    emoji: document.querySelectorAll('.emoji-select')[3].value,
+                    text: document.getElementById('benefit4').value
+                },
+                paymentMsg: document.getElementById('paymentMsg').value,
+                whatsappMsg: document.getElementById('whatsappMsg').value,
+                shortDesc: document.getElementById('shortDesc').value
+            };
+
+            const priceFormatted = parseInt(formData.price).toLocaleString();
+            
+            // Generate benefit items HTML
+            let benefitsHtml = '';
+            ['benefit1', 'benefit2', 'benefit3', 'benefit4'].forEach(key => {
+                if (formData[key].text) {
+                    benefitsHtml += `                <div class="benefit-item">
+                    <div class="benefit-icon">${formData[key].emoji}</div>
+                    <div class="benefit-text">${formData[key].text}</div>
+                </div>\n`;
+                }
+            });
+
+            // Generate the full HTML
+            const htmlContent = generateEbookHTML(formData, priceFormatted, benefitsHtml);
+            
+            // Generate homepage card code
+            const cardCode = `            <div class="ebook-card">
+                <h3>${formData.title}</h3>
+                <div class="price">₦${priceFormatted}</div>
+                <p>${formData.shortDesc}</p>
+                <a href="ebooks/${formData.filename}.html" class="btn">View Details</a>
+            </div>`;
+            
+            // Show result section
+            document.getElementById('result').classList.add('show');
+            document.getElementById('cardCode').value = cardCode;
+            
+            // Setup download button
+            document.getElementById('downloadBtn').onclick = function() {
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = formData.filename + '.html';
+                a.click();
+            };
+            
+            // Setup copy button
+            document.getElementById('copyCardBtn').onclick = function() {
+                document.getElementById('cardCode').select();
+                document.execCommand('copy');
+                alert('✅ Card code copied! Paste it in index.html');
+            };
+
+            // Scroll to result
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function generateEbookHTML(data, priceFormatted, benefitsHtml) {
+            return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${data.title} - Lucy 💋</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px;
+            color: #ff6b9d;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05em;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffc2d4 100%);
+            color: white;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.2em;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .ebook-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .ebook-cover {
+            background: linear-gradient(135deg, #ff8fab 0%, #ff6b9d 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ebook-cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+
+        .ebook-cover-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 60px 20px;
+        }
+
+        .ebook-cover h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .ebook-cover .price-tag {
+            background: rgba(255,255,255,0.9);
+            color: #ff6b9d;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.8em;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .ebook-description h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+        }
+
+        .ebook-description p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .benefits-section {
+            background: white;
+            border-radius: 30px;
+            padding: 50px 30px;
+            max-width: 900px;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .benefits-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: #ff6b9d;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .benefits-list {
+            display: grid;
+            gap: 25px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef8 100%);
+            border-radius: 15px;
+            border-left: 5px solid #ff6b9d;
+        }
+
+        .benefit-icon {
+            font-size: 2em;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .payment-section {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        .payment-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        .payment-details {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            line-height: 2;
+        }
+
+        .payment-details strong {
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+
+        .payment-instructions {
+            margin-top: 20px;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #25D366 0%, #20BA5A 100%);
+            color: white;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        footer a {
+            color: #ff6b9d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .ebook-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 40px 20px;
+            }
+
+            .ebook-cover h2 {
+                font-size: 1.8em;
+            }
+
+            .ebook-description h3 {
+                font-size: 1.6em;
+            }
+
+            .benefits-section {
+                padding: 30px 20px;
+            }
+
+            .benefits-section h3 {
+                font-size: 1.8em;
+            }
+
+            .payment-section {
+                padding: 30px 20px;
+            }
+
+            .payment-section h3 {
+                font-size: 1.8em;
+            }
+
+            .whatsapp-btn {
+                padding: 18px 40px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">← Back to All Ebooks</a>
+
+    <header>
+        <h1>${data.title} 💋</h1>
+        <p>${data.subtitle}</p>
+    </header>
+
+    <div class="container">
+        <section class="ebook-section">
+            <div class="ebook-cover">
+                <div class="ebook-cover-content">
+                    <h2>${data.coverTitle}</h2>
+                    <p style="font-size: 1.2em; margin: 20px 0;">By Lucy</p>
+                    <div class="price-tag">₦${priceFormatted}</div>
+                </div>
+            </div>
+            <div class="ebook-description">
+                <h3>What You'll Discover</h3>
+                <p>${data.desc1}</p>
+                <p>${data.desc2}</p>
+                <p>${data.desc3}</p>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <h3>What's Inside ✨</h3>
+            <div class="benefits-list">
+${benefitsHtml}            </div>
+        </section>
+
+        <section class="payment-section">
+            <h3>How to Get Your Copy</h3>
+            <div class="payment-details">
+                <p><strong>💵 Price:</strong> ₦${priceFormatted}</p>
+                <p><strong>📲 Payment Method:</strong></p>
+                <p>Send ₦${priceFormatted} to<br><strong>0123456789</strong><br>(Opay – Joseph John)</p>
+            </div>
+            <div class="payment-instructions">
+                <p>After payment, message me <strong>"${data.paymentMsg}"</strong> on WhatsApp to receive your copy instantly.</p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <a href="https://wa.me/234XXXXXXXXXX?text=Hi%20Lucy%2C%20${encodeURIComponent(data.whatsappMsg)}" class="whatsapp-btn">
+                💬 Chat Lucy on WhatsApp
+            </a>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2025 Lucy Dating Tips. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>`;
+        }
+    </script>
+</body>
+</html>

@@ -38,13 +38,23 @@ Static HTML landing pages with template system for easy scaling.
 5. After payment, they message Lucy to receive the ebook
 
 ## Adding New Ebooks
-See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` for complete instructions.
 
-Quick steps:
+### Easy Method: Ebook Generator (Recommended)
+1. Visit `/create-ebook.html` in the browser
+2. Fill out the form with ebook details (title, price, description, benefits, etc.)
+3. Click "Generate Ebook Files"
+4. Download the generated HTML file
+5. Save it in `ebooks/` folder
+6. Copy and paste the homepage card code into `index.html`
+7. Done! No coding needed!
+
+### Manual Method: Template System
 1. Copy `ebooks/_TEMPLATE.html`
 2. Rename and customize
 3. Add a card to homepage
 4. Share the unique URL
+
+See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` for detailed manual instructions.
 
 ## Important Customization Needed
 Before publishing, update in ALL files:
