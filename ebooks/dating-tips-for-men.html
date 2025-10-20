@@ -119,6 +119,30 @@
             margin-top: 20px;
         }
 
+        .ebook-cover-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .ebook-cover.has-image {
+            padding: 20px;
+            background: white;
+        }
+
+        .ebook-cover.has-image .ebook-cover-content {
+            padding: 20px 0 0 0;
+        }
+
+        .ebook-cover.has-image h2,
+        .ebook-cover.has-image p {
+            color: #333;
+        }
+
         .ebook-description h3 {
             font-family: 'Playfair Display', serif;
             font-size: 2em;
@@ -305,6 +329,24 @@
 
     <div class="container">
         <section class="ebook-section">
+            <!-- OPTION 1: WITH COVER IMAGE -->
+            <!-- To use a cover image:
+                1. Save your image in ../images/ebook-covers/ folder
+                2. Uncomment the section below
+                3. Replace 'dating-tips-cover.jpg' with your image filename
+                4. Comment out or delete "OPTION 2" below
+            -->
+            <!-- <div class="ebook-cover has-image">
+                <img src="../images/ebook-covers/dating-tips-cover.jpg" alt="Dating Tips Ebook Cover" class="ebook-cover-image">
+                <div class="ebook-cover-content">
+                    <h2>Dating Tips<br>for Men</h2>
+                    <p style="font-size: 1.2em; margin: 20px 0;">By Lucy</p>
+                    <div class="price-tag">₦2,500</div>
+                </div>
+            </div> -->
+
+            <!-- OPTION 2: WITHOUT COVER IMAGE (GRADIENT STYLE) -->
+            <!-- This is the default gradient style. Delete this section if you're using Option 1 -->
             <div class="ebook-cover">
                 <div class="ebook-cover-content">
                     <h2>Dating Tips<br>for Men</h2>
