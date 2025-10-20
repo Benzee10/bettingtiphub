@@ -82,6 +82,16 @@ Files to update (WhatsApp number only):
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-20: Added currency selection feature to ebook creator
+  - Users can now select from 10 different currencies (USD, EUR, GBP, NGN, CAD, AUD, ZAR, KES, GHS, INR)
+  - Currency symbols automatically display on ebook covers and pricing sections
+  - Default currency set to Nigerian Naira (₦ NGN)
+  - Generated ebook pages and homepage cards display correct currency symbol
+  - Currency code shown alongside price in payment section
+- 2025-10-20: Added ebook cover images to homepage cards
+  - Each ebook card now displays a pink gradient cover with the ebook title
+  - Images from each ebook appear below the cover
+  - Prices are prominently displayed with proper currency symbols
 - 2025-10-20: Added 3 new ebook samples to showcase the multi-ebook system
   - Created "Texting Secrets for Men" ebook page ($20)
   - Created "First Date Confidence" ebook page ($18)
