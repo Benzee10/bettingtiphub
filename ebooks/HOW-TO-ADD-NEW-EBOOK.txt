@@ -11,14 +11,13 @@ STEP 1: Create the Ebook Page
 
    - Title and subtitle in the header
    - Ebook cover title
-   - Price (appears twice - in cover and payment section)
+   - Price (appears in cover and payment section)
    - Description paragraphs
    - 3-4 benefit items (you can add/remove benefit items as needed)
-   - Payment details (account number, bank name)
-   - WhatsApp message text
-   - WhatsApp link text
+   - WhatsApp link text (optional)
 
 4. Update the WhatsApp number: Replace "234XXXXXXXXXX" with your actual number
+5. Do NOT change the MiniPay payment link - it's already set correctly
 
 
 STEP 2: Add to Homepage
@@ -45,7 +44,7 @@ STEP 3: Update Global Settings
 -------------------------------
 Don't forget to update in BOTH files (homepage and ebook page):
 - WhatsApp number: Replace "234XXXXXXXXXX" with your number
-- Payment account details
+- Payment method is already set to MiniPay (do not change)
 
 
 TIPS

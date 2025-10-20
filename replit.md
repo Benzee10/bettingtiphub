@@ -58,16 +58,27 @@ See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` for detailed manual instructions.
 
 ## Important Customization Needed
 Before publishing, update in ALL files:
-1. **WhatsApp Number** - Replace `234XXXXXXXXXX` 
-2. **Payment Details** - Update account number, bank, and account name
+1. **WhatsApp Number** - Replace `234XXXXXXXXXX` with your actual WhatsApp number
 
-Files to update:
+**Payment Method:**
+- Payment is handled through MiniPay
+- Link: https://link.minipay.xyz/invite?ref=9yjqAbmi
+- This is already set in all templates and ebook pages
+- Do NOT change or replace this payment link
+
+Files to update (WhatsApp number only):
 - index.html
 - ebooks/dating-tips-for-men.html
 - ebooks/_TEMPLATE.html
+- create-ebook.html (generator template)
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-20: Updated payment method to MiniPay across all pages
+  - All ebook pages now use MiniPay payment link
+  - Payment link: https://link.minipay.xyz/invite?ref=9yjqAbmi
+  - Updated payment instructions to "I've paid" message
+  - Documentation updated to reflect new payment method
 - 2025-10-20: Updated create-ebook.html to use image URLs instead of file uploads
   - Users can now add multiple image URLs for each ebook
   - Images are displayed in a responsive grid on the ebook page

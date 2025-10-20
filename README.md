@@ -48,16 +48,16 @@ See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` for step-by-step guide.
    - Replace with your actual number (with country code, no +)
    - Example: `2348012345678`
 
-2. **Payment Account**
-   - Account number (currently `0123456789`)
-   - Bank name (currently `Opay`)
-   - Account holder (currently `Joseph John`)
+2. **Payment Method**
+   - Currently using MiniPay: https://link.minipay.xyz/invite?ref=9yjqAbmi
+   - This link is already set in all templates
+   - Do not change or replace this payment link
 
 ### Files to Update:
-- `index.html` - homepage
-- `ebooks/dating-tips-for-men.html` - example ebook
-- `ebooks/_TEMPLATE.html` - template for future ebooks
-- Any new ebook pages you create
+- `index.html` - homepage (WhatsApp number only)
+- `ebooks/dating-tips-for-men.html` - example ebook (WhatsApp number only)
+- `ebooks/_TEMPLATE.html` - template for future ebooks (WhatsApp number only)
+- Any new ebook pages you create (WhatsApp number only)
 
 ## Features
 
