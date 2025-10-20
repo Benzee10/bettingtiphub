@@ -288,23 +288,6 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Payment Message *</label>
-                <input type="text" id="paymentMsg" required placeholder="Paid for Texting Secrets Ebook">
-                <p class="helper-text">What customers should message you after payment</p>
-            </div>
-
-            <div class="form-group">
-                <label>WhatsApp Message Text *</label>
-                <input type="text" id="whatsappMsg" required placeholder="I want to buy the Texting Secrets ebook!">
-                <p class="helper-text">Pre-filled message when customers click WhatsApp button</p>
-            </div>
-
-            <div class="form-group">
-                <label>Short Description (for homepage card) *</label>
-                <textarea id="shortDesc" required placeholder="A brief 1-2 sentence description for the homepage"></textarea>
-            </div>
-
             <button type="submit" class="btn">✨ Generate Ebook Files</button>
         </form>
 
@@ -335,13 +318,16 @@
         document.getElementById('ebookForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const title = document.getElementById('title').value;
+            const desc1 = document.getElementById('desc1').value;
+            
             const formData = {
-                title: document.getElementById('title').value,
+                title: title,
                 subtitle: document.getElementById('subtitle').value,
                 filename: document.getElementById('filename').value,
                 price: document.getElementById('price').value,
                 coverTitle: document.getElementById('coverTitle').value,
-                desc1: document.getElementById('desc1').value,
+                desc1: desc1,
                 desc2: document.getElementById('desc2').value,
                 desc3: document.getElementById('desc3').value,
                 benefit1: {
@@ -360,9 +346,10 @@
                     emoji: document.querySelectorAll('.emoji-select')[3].value,
                     text: document.getElementById('benefit4').value
                 },
-                paymentMsg: document.getElementById('paymentMsg').value,
-                whatsappMsg: document.getElementById('whatsappMsg').value,
-                shortDesc: document.getElementById('shortDesc').value
+                // Auto-generate these based on title
+                paymentMsg: `Paid for ${title}`,
+                whatsappMsg: `I want to buy the ${title} ebook!`,
+                shortDesc: desc1
             };
 
             const priceFormatted = parseInt(formData.price).toLocaleString();

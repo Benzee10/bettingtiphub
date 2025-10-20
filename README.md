@@ -18,8 +18,14 @@ A beautiful, feminine landing page system for promoting multiple ebooks with Wha
 
 ### Method 1: Using the Ebook Generator (EASIEST!) ✨
 1. Go to `/create-ebook.html` in your browser
-2. Fill out the simple form with your ebook details
-3. Click "Generate Ebook Files"
+2. Fill out the simple form with just these fields:
+   - Ebook title & subtitle
+   - Filename (for the URL)
+   - Price
+   - Cover title (short version)
+   - 3 description paragraphs
+   - 3-4 benefits with custom emojis
+3. Click "Generate Ebook Files" (payment messages and descriptions auto-generate!)
 4. Download the generated HTML file and save it in the `ebooks/` folder
 5. Copy the homepage card code and paste it in `index.html`
 6. Done! No coding required!
