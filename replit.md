@@ -15,11 +15,16 @@ Static HTML landing pages with template system for easy scaling.
 ## Site Structure
 ```
 /
-├── index.html                        # Homepage listing all ebooks
+├── index.html                          # Homepage listing all ebooks
+├── create-ebook.html                   # Ebook generator tool
+├── server.py                           # Python HTTP server
 ├── ebooks/
-│   ├── dating-tips-for-men.html     # Example ebook page
-│   ├── _TEMPLATE.html               # Template for creating new ebooks
-│   └── HOW-TO-ADD-NEW-EBOOK.txt     # Step-by-step instructions
+│   ├── dating-tips-for-men.html       # Ebook 1 - Dating Tips ($25)
+│   ├── texting-secrets-for-men.html   # Ebook 2 - Texting Secrets ($20)
+│   ├── first-date-confidence.html     # Ebook 3 - First Date Confidence ($18)
+│   ├── understanding-women.html       # Ebook 4 - Understanding Women ($22)
+│   ├── _TEMPLATE.html                 # Template for creating new ebooks
+│   └── HOW-TO-ADD-NEW-EBOOK.txt       # Step-by-step instructions
 ```
 
 ## Key Features
@@ -69,11 +74,20 @@ Before publishing, update in ALL files:
 Files to update (WhatsApp number only):
 - index.html
 - ebooks/dating-tips-for-men.html
+- ebooks/texting-secrets-for-men.html
+- ebooks/first-date-confidence.html
+- ebooks/understanding-women.html
 - ebooks/_TEMPLATE.html
 - create-ebook.html (generator template)
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-20: Added 3 new ebook samples to showcase the multi-ebook system
+  - Created "Texting Secrets for Men" ebook page ($20)
+  - Created "First Date Confidence" ebook page ($18)
+  - Created "Understanding Women" ebook page ($22)
+  - Updated homepage to display all 4 ebooks in a responsive grid
+  - All new ebooks follow the same design pattern and include WhatsApp integration
 - 2025-10-20: Updated payment method to MiniPay across all pages
   - All ebook pages now use MiniPay payment link
   - Payment link: https://link.minipay.xyz/invite?ref=9yjqAbmi
@@ -96,8 +110,23 @@ Files to update (WhatsApp number only):
 ## Deployment
 Configured for Replit Autoscale deployment with `python3 server.py`
 
-## Unique Links
-Each ebook can be shared individually:
+## Available Ebooks
+The site currently features 4 ebooks with individual shareable links:
+
+1. **Dating Tips for Men** ($25)
+   - Link: `yoursite.com/ebooks/dating-tips-for-men.html`
+   - Topics: Attraction, avoiding ghosting, building real connections
+
+2. **Texting Secrets for Men** ($20)
+   - Link: `yoursite.com/ebooks/texting-secrets-for-men.html`
+   - Topics: Perfect first texts, timing, flirty messages, transitioning to dates
+
+3. **First Date Confidence** ($18)
+   - Link: `yoursite.com/ebooks/first-date-confidence.html`
+   - Topics: Date planning, conversation starters, reading body language, perfect goodbye
+
+4. **Understanding Women** ($22)
+   - Link: `yoursite.com/ebooks/understanding-women.html`
+   - Topics: Decoding mixed signals, emotional communication, handling conflicts
+
 - Homepage: `yoursite.com/`
-- Dating Tips: `yoursite.com/ebooks/dating-tips-for-men.html`
-- Future ebooks: `yoursite.com/ebooks/your-filename.html`
