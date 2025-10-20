@@ -234,15 +234,9 @@
             </div>
 
             <div class="form-group">
-                <label>File Name *</label>
-                <input type="text" id="filename" required placeholder="e.g., texting-secrets-for-men">
-                <p class="helper-text">Use lowercase letters and hyphens only (no spaces). This will be your URL.</p>
-            </div>
-
-            <div class="form-group">
-                <label>Price (₦) *</label>
-                <input type="number" id="price" required placeholder="2500" min="0">
-                <p class="helper-text">Price in Naira</p>
+                <label>Price ($) *</label>
+                <input type="number" id="price" required placeholder="25" min="0">
+                <p class="helper-text">Price in dollars</p>
             </div>
 
             <div class="form-group">
@@ -298,7 +292,7 @@
                 <h4>📋 What to do next:</h4>
                 <ol>
                     <li>Click "Download Ebook Page" below to save the HTML file</li>
-                    <li>Save it in the <code>ebooks/</code> folder with the filename you specified</li>
+                    <li>Save it in the <code>ebooks/</code> folder</li>
                     <li>Copy the "Homepage Card Code" and paste it in <code>index.html</code> where it says "Add more ebook cards here"</li>
                     <li>That's it! Your new ebook is live!</li>
                 </ol>
@@ -321,10 +315,17 @@
             const title = document.getElementById('title').value;
             const desc1 = document.getElementById('desc1').value;
             
+            // Auto-generate filename from title
+            const filename = title.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+            
             const formData = {
                 title: title,
                 subtitle: document.getElementById('subtitle').value,
-                filename: document.getElementById('filename').value,
+                filename: filename,
                 price: document.getElementById('price').value,
                 coverTitle: document.getElementById('coverTitle').value,
                 desc1: desc1,
@@ -371,7 +372,7 @@
             // Generate homepage card code
             const cardCode = `            <div class="ebook-card">
                 <h3>${formData.title}</h3>
-                <div class="price">₦${priceFormatted}</div>
+                <div class="price">$${priceFormatted}</div>
                 <p>${formData.shortDesc}</p>
                 <a href="ebooks/${formData.filename}.html" class="btn">View Details</a>
             </div>`;
@@ -713,7 +714,7 @@
                 <div class="ebook-cover-content">
                     <h2>${data.coverTitle}</h2>
                     <p style="font-size: 1.2em; margin: 20px 0;">By Lucy</p>
-                    <div class="price-tag">₦${priceFormatted}</div>
+                    <div class="price-tag">$${priceFormatted}</div>
                 </div>
             </div>
             <div class="ebook-description">
@@ -733,9 +734,9 @@ ${benefitsHtml}            </div>
         <section class="payment-section">
             <h3>How to Get Your Copy</h3>
             <div class="payment-details">
-                <p><strong>💵 Price:</strong> ₦${priceFormatted}</p>
+                <p><strong>💵 Price:</strong> $${priceFormatted}</p>
                 <p><strong>📲 Payment Method:</strong></p>
-                <p>Send ₦${priceFormatted} to<br><strong>0123456789</strong><br>(Opay – Joseph John)</p>
+                <p>Send $${priceFormatted} to<br><strong>0123456789</strong><br>(Opay – Joseph John)</p>
             </div>
             <div class="payment-instructions">
                 <p>After payment, message me <strong>"${data.paymentMsg}"</strong> on WhatsApp to receive your copy instantly.</p>
