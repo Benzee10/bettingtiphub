@@ -246,34 +246,31 @@
             </div>
 
             <div class="form-group">
-                <label>Description Paragraph 1 *</label>
-                <textarea id="desc1" required placeholder="This ebook reveals..."></textarea>
+                <label>Image URL</label>
+                <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
+                <p class="helper-text">Optional: Add a link to an image for your ebook</p>
             </div>
 
             <div class="form-group">
-                <label>Description Paragraph 2 *</label>
-                <textarea id="desc2" required placeholder="Written from a woman's point of view..."></textarea>
+                <label>Description *</label>
+                <textarea id="desc1" required placeholder="Describe your ebook and what readers will learn..." style="min-height: 120px;"></textarea>
+                <p class="helper-text">A compelling description of your ebook</p>
             </div>
 
             <div class="form-group">
-                <label>Description Paragraph 3 *</label>
-                <textarea id="desc3" required placeholder="No games. No tricks..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Benefits / What's Inside (3-4 items) *</label>
+                <label>Benefits / What's Inside (Optional)</label>
                 <div class="benefits-container">
                     <div class="benefit-input">
                         <input type="text" class="emoji-select" value="💖" maxlength="2">
-                        <input type="text" id="benefit1" required placeholder="First key benefit">
+                        <input type="text" id="benefit1" placeholder="First key benefit">
                     </div>
                     <div class="benefit-input">
                         <input type="text" class="emoji-select" value="🚫" maxlength="2">
-                        <input type="text" id="benefit2" required placeholder="Second key benefit">
+                        <input type="text" id="benefit2" placeholder="Second key benefit">
                     </div>
                     <div class="benefit-input">
                         <input type="text" class="emoji-select" value="💪" maxlength="2">
-                        <input type="text" id="benefit3" required placeholder="Third key benefit">
+                        <input type="text" id="benefit3" placeholder="Third key benefit">
                     </div>
                     <div class="benefit-input">
                         <input type="text" class="emoji-select" value="🎁" maxlength="2">
@@ -328,9 +325,8 @@
                 filename: filename,
                 price: document.getElementById('price').value,
                 coverTitle: document.getElementById('coverTitle').value,
+                imageUrl: document.getElementById('imageUrl').value,
                 desc1: desc1,
-                desc2: document.getElementById('desc2').value,
-                desc3: document.getElementById('desc3').value,
                 benefit1: {
                     emoji: document.querySelectorAll('.emoji-select')[0].value,
                     text: document.getElementById('benefit1').value
@@ -719,18 +715,17 @@
             </div>
             <div class="ebook-description">
                 <h3>What You'll Discover</h3>
+                ${data.imageUrl ? `<img src="${data.imageUrl}" alt="${data.title}" style="width: 100%; max-width: 400px; border-radius: 15px; margin-bottom: 20px;">` : ''}
                 <p>${data.desc1}</p>
-                <p>${data.desc2}</p>
-                <p>${data.desc3}</p>
             </div>
         </section>
-
+${benefitsHtml ? `
         <section class="benefits-section">
             <h3>What's Inside ✨</h3>
             <div class="benefits-list">
 ${benefitsHtml}            </div>
         </section>
-
+` : ''}
         <section class="payment-section">
             <h3>How to Get Your Copy</h3>
             <div class="payment-details">
