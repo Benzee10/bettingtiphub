@@ -34,6 +34,8 @@ Static HTML landing pages with template system for easy scaling.
 - **Responsive Design**: Mobile-first approach
 - **Elegant Aesthetics**: Soft pink/blush color scheme with professional typography
 - **WhatsApp Integration**: Direct call-to-action buttons for customer contact
+- **Smooth Animations**: Fade-in effects on scroll, hover animations on cards, floating WhatsApp button
+- **Dark Mode**: Toggle between light and dark themes while maintaining the pink aesthetic
 
 ## How It Works
 1. Homepage shows all available ebooks
@@ -84,6 +86,17 @@ Files to update (WhatsApp number only):
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-20: Added smooth animations and dark mode toggle across entire site
+  - Implemented CSS variables for easy theme switching (light/dark modes)
+  - Added fade-in animations that trigger when scrolling to sections
+  - Enhanced hover effects on ebook cards with scale and lift animations
+  - Added floating/pulsing animation to WhatsApp buttons for attention
+  - Hero sections slide down with entrance animation
+  - Dark mode maintains pink aesthetic with adjusted colors for readability
+  - Theme preference saved in localStorage for persistence
+  - Dark mode toggle button (🌙/☀️) in top-right corner of all pages
+  - Applied to: index.html, all 4 ebook pages, _TEMPLATE.html, and create-ebook.html generator
+  - Generated ebooks from create-ebook.html now include animations and dark mode by default
 - 2025-10-20: Added detailed MiniPay payment instructions across all ebook pages
   - Replaced simple payment section with comprehensive "How to Pay" guide
   - Added step-by-step MiniPay setup and usage instructions with visual sections

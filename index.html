@@ -8,6 +8,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
+            --bg-header: linear-gradient(135deg, #ff6b9d 0%, #ffc2d4 100%);
+            --text-primary: #333;
+            --text-secondary: #555;
+            --text-light: #666;
+            --card-bg: white;
+            --pink-primary: #ff6b9d;
+            --pink-secondary: #ffc2d4;
+            --shadow-light: rgba(0,0,0,0.08);
+            --shadow-hover: rgba(255, 107, 157, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #1a0d14 0%, #2d1a24 50%, #1f0e18 100%);
+            --bg-header: linear-gradient(135deg, #d4478a 0%, #e896b3 100%);
+            --text-primary: #f0f0f0;
+            --text-secondary: #d0d0d0;
+            --text-light: #b0b0b0;
+            --card-bg: #2a1a24;
+            --pink-primary: #ff8fab;
+            --pink-secondary: #ffc2d4;
+            --shadow-light: rgba(255,255,255,0.05);
+            --shadow-hover: rgba(255, 139, 171, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,18 +42,105 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
-            color: #333;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
+            transition: background 0.5s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 2px solid var(--pink-primary);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px var(--shadow-hover);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .slide-in-down {
+            animation: slideInDown 0.8s ease forwards;
         }
 
         header {
             text-align: center;
             padding: 60px 20px;
-            background: linear-gradient(135deg, #ff6b9d 0%, #ffc2d4 100%);
+            background: var(--bg-header);
             color: white;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+            box-shadow: 0 10px 30px var(--shadow-hover);
+            transition: all 0.3s ease;
         }
 
         header h1 {
@@ -60,13 +173,13 @@
         .intro-section h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.5em;
-            color: #ff6b9d;
+            color: var(--pink-primary);
             margin-bottom: 20px;
         }
 
         .intro-section p {
             font-size: 1.2em;
-            color: #555;
+            color: var(--text-secondary);
             max-width: 800px;
             margin: 0 auto;
             line-height: 1.8;
@@ -80,18 +193,22 @@
         }
 
         .ebook-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 0;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
         }
 
         .ebook-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 50px rgba(255, 107, 157, 0.2);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px var(--shadow-hover);
+        }
+
+        .ebook-card:hover .ebook-cover-mini {
+            transform: scale(1.05);
         }
 
         .ebook-cover-mini {
@@ -99,6 +216,7 @@
             padding: 50px 20px;
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
         }
 
         .ebook-cover-mini::before {
@@ -136,12 +254,12 @@
         .ebook-card-content .price {
             font-size: 1.5em;
             font-weight: 700;
-            color: #ff6b9d;
+            color: var(--pink-primary);
             margin-bottom: 15px;
         }
 
         .ebook-card-content p {
-            color: #666;
+            color: var(--text-light);
             font-size: 1.05em;
             margin-bottom: 25px;
             line-height: 1.6;
@@ -149,20 +267,20 @@
 
         .ebook-card .btn {
             display: inline-block;
-            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            background: linear-gradient(135deg, var(--pink-primary) 0%, #ff8fab 100%);
             color: white;
             padding: 15px 35px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1em;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 20px var(--shadow-hover);
         }
 
         .ebook-card .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px var(--shadow-hover);
         }
 
         .whatsapp-section {
@@ -196,17 +314,19 @@
             font-weight: 600;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
         }
 
         .whatsapp-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: pulse 1s ease-in-out infinite;
         }
 
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #666;
+            color: var(--text-light);
             font-size: 0.95em;
         }
 
@@ -230,18 +350,20 @@
     </style>
 </head>
 <body>
-    <header>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    
+    <header class="slide-in-down">
         <h1>Lucy's Library 💋</h1>
         <p>Unlock the secrets to dating, attraction, and meaningful relationships</p>
     </header>
 
     <div class="container">
-        <div class="intro-section">
+        <div class="intro-section fade-in-up">
             <h2>Welcome!</h2>
             <p>I'm Lucy, and I help men understand what women really want. Browse my collection of ebooks below — each one packed with honest insights, practical advice, and real-world tips to help you attract and keep the woman of your dreams.</p>
         </div>
 
-        <div class="ebooks-grid">
+        <div class="ebooks-grid" id="ebooksGrid">
             <!-- Ebook 1 - Dating Tips for Men -->
             <div class="ebook-card">
                 <div class="ebook-cover-mini">
@@ -308,5 +430,60 @@
     <footer>
         <p>© 2025 Lucy Dating Tips. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const theme = body.getAttribute('data-theme');
+            if (theme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Scroll Animation for Ebook Cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('fade-in-up');
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all ebook cards
+        const ebookCards = document.querySelectorAll('.ebook-card');
+        ebookCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe WhatsApp section
+        const whatsappSection = document.querySelector('.whatsapp-section');
+        if (whatsappSection) {
+            observer.observe(whatsappSection);
+        }
+    </script>
 </body>
 </html>

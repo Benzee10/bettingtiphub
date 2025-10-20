@@ -8,6 +8,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
+            --bg-header: linear-gradient(135deg, #ff6b9d 0%, #ffc2d4 100%);
+            --text-primary: #333;
+            --text-secondary: #555;
+            --text-light: #666;
+            --card-bg: white;
+            --pink-primary: #ff6b9d;
+            --pink-secondary: #ffc2d4;
+            --shadow-light: rgba(0,0,0,0.08);
+            --shadow-hover: rgba(255, 107, 157, 0.2);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #1a0d14 0%, #2d1a24 50%, #1f0e18 100%);
+            --bg-header: linear-gradient(135deg, #d4478a 0%, #e896b3 100%);
+            --text-primary: #f0f0f0;
+            --text-secondary: #d0d0d0;
+            --text-light: #b0b0b0;
+            --card-bg: #2a1a24;
+            --pink-primary: #ff8fab;
+            --pink-secondary: #ffc2d4;
+            --shadow-light: rgba(255,255,255,0.05);
+            --shadow-hover: rgba(255, 139, 171, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,22 +42,97 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #ffe8f0 100%);
-            color: #333;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: background 0.5s ease, color 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 2px solid var(--pink-primary);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px var(--shadow-hover);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .slide-in-down {
+            animation: slideInDown 0.8s ease forwards;
         }
 
         .back-link {
             display: inline-block;
             margin: 20px;
-            color: #ff6b9d;
+            color: var(--pink-primary);
             text-decoration: none;
             font-weight: 500;
             font-size: 1.05em;
+            transition: all 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .back-link:hover {
             text-decoration: underline;
+            transform: translateX(-5px);
         }
 
         .container {
@@ -43,10 +144,12 @@
         header {
             text-align: center;
             padding: 60px 20px;
-            background: linear-gradient(135deg, #ff6b9d 0%, #ffc2d4 100%);
+            background: var(--bg-header);
             color: white;
             border-radius: 0 0 50px 50px;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+            box-shadow: 0 10px 30px var(--shadow-hover);
+            transition: all 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         header h1 {
@@ -110,7 +213,7 @@
 
         .ebook-cover .price-tag {
             background: rgba(255,255,255,0.9);
-            color: #ff6b9d;
+            color: var(--pink-primary);
             padding: 15px 30px;
             border-radius: 50px;
             font-size: 1.8em;
@@ -122,19 +225,19 @@
         .ebook-description h3 {
             font-family: 'Playfair Display', serif;
             font-size: 2em;
-            color: #ff6b9d;
+            color: var(--pink-primary);
             margin-bottom: 20px;
         }
 
         .ebook-description p {
             font-size: 1.1em;
-            color: #555;
+            color: var(--text-secondary);
             line-height: 1.8;
             margin-bottom: 15px;
         }
 
         .benefits-section {
-            background: white;
+            background: var(--card-bg);
             border-radius: 30px;
             padding: 50px 30px;
             max-width: 900px;
@@ -145,7 +248,7 @@
         .benefits-section h3 {
             font-family: 'Playfair Display', serif;
             font-size: 2.2em;
-            color: #ff6b9d;
+            color: var(--pink-primary);
             text-align: center;
             margin-bottom: 40px;
         }
@@ -172,7 +275,7 @@
 
         .benefit-text {
             font-size: 1.1em;
-            color: #333;
+            color: var(--text-primary);
         }
 
         .payment-section {
@@ -229,22 +332,24 @@
             font-weight: 600;
             box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
             transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
         }
 
         .whatsapp-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.05);
+            animation: pulse 1s ease-in-out infinite;
             box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
         }
 
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: #666;
+            color: var(--text-light);
             font-size: 0.95em;
         }
 
         footer a {
-            color: #ff6b9d;
+            color: var(--pink-primary);
             text-decoration: none;
             font-weight: 500;
         }
@@ -298,7 +403,7 @@
 <body>
     <a href="../index.html" class="back-link">← Back to All Ebooks</a>
 
-    <header>
+    <header class="slide-in-down">
         <h1>Master Dating Tips for Men 💋</h1>
         <p>Learn what women really want — from a woman who understands them.</p>
     </header>
@@ -352,7 +457,7 @@
                     <h4 style="font-size: 1.3em; margin-bottom: 15px;">💰 Step 1: Join MiniPay</h4>
                     <p style="margin-bottom: 10px;">Lucy collects payments through <strong>MiniPay</strong>, a fast and secure wallet built by <strong>Opera</strong>.</p>
                     <p style="margin-bottom: 15px;">If you don't have it yet, click below to join 👇</p>
-                    <a href="https://link.minipay.xyz/invite?ref=9yjqAbmi" target="_blank" style="background: white; color: #ff6b9d; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 10px;">👉 Join MiniPay Here</a>
+                    <a href="https://link.minipay.xyz/invite?ref=9yjqAbmi" target="_blank" style="background: var(--card-bg); color: var(--pink-primary); padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 10px;">👉 Join MiniPay Here</a>
                     <p style="font-size: 0.95em; opacity: 0.9;">It's super easy — it only takes a few seconds to set up.</p>
                 </div>
 
@@ -369,7 +474,7 @@
                         <li>Send that link to Lucy on <strong>WhatsApp</strong> so she can confirm and deliver your ebook instantly.</li>
                     </ol>
                     <p style="margin-bottom: 15px;"><strong>🎥 Need help?</strong> Watch this quick tutorial:</p>
-                    <a href="https://www.youtube.com/watch?v=DWxBXa7Fs4w" target="_blank" style="background: white; color: #ff6b9d; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block;">📺 Watch How to Use MiniPay</a>
+                    <a href="https://www.youtube.com/watch?v=DWxBXa7Fs4w" target="_blank" style="background: var(--card-bg); color: var(--pink-primary); padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: 600; display: inline-block;">📺 Watch How to Use MiniPay</a>
                 </div>
 
                 <div style="text-align: left; background: rgba(255,255,255,0.2); padding: 25px; border-radius: 15px; margin: 20px 0;">
@@ -402,5 +507,54 @@
     <footer>
         <p>© 2025 Lucy Dating Tips. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const theme = body.getAttribute('data-theme');
+            if (theme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('fade-in-up');
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections
+        const sections = document.querySelectorAll('.ebook-section, .benefits-grid, .images-section, .payment-section, .purchase-section');
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
