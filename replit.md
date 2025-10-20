@@ -68,6 +68,10 @@ Files to update:
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-20: Updated create-ebook.html to use image URLs instead of file uploads
+  - Users can now add multiple image URLs for each ebook
+  - Images are displayed in a responsive grid on the ebook page
+  - Image previews show automatically when URLs are entered
 - 2025-10-20: Restructured to multi-ebook system with template
 - Created homepage with ebook grid
 - Added template system for easy scaling
