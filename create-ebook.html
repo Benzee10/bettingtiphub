@@ -212,22 +212,63 @@
             text-decoration: underline;
         }
 
-        .file-upload {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            border: 2px dashed #ff6b9d;
-            border-radius: 10px;
-            background: #fff5f7;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1em;
+        .url-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
         }
 
-        .file-upload:hover {
+        .image-url-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ffe8f0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .image-url-input:focus {
+            outline: none;
+            border-color: #ff6b9d;
+        }
+
+        .remove-url-btn {
+            background: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .remove-url-btn:hover {
+            background: #ff4d7d;
+            transform: scale(1.1);
+        }
+
+        .add-url-btn {
             background: #ffe8f0;
-            border-color: #ff8fab;
+            color: #ff6b9d;
+            border: 2px solid #ff6b9d;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .add-url-btn:hover {
+            background: #ffd4e5;
         }
 
         .image-preview {
@@ -310,9 +351,15 @@
             </div>
 
             <div class="form-group">
-                <label>Upload Images (Optional)</label>
-                <p class="helper-text">Upload one or more images for your ebook page</p>
-                <input type="file" id="imageUpload" accept="image/*" multiple class="file-upload">
+                <label>Image URLs (Optional)</label>
+                <p class="helper-text">Add one or more image URLs for your ebook page</p>
+                <div id="imageUrlsContainer">
+                    <div class="url-input-group">
+                        <input type="url" class="image-url-input" placeholder="https://example.com/image.jpg">
+                        <button type="button" class="remove-url-btn" onclick="removeUrlInput(0)">×</button>
+                    </div>
+                </div>
+                <button type="button" class="add-url-btn" onclick="addUrlInput()">+ Add Another Image URL</button>
                 <div id="imagePreview" class="image-preview"></div>
             </div>
 
@@ -371,49 +418,67 @@
     </div>
 
     <script>
-        // Handle file uploads
-        const imageUpload = document.getElementById('imageUpload');
+        // Handle image URL inputs
         const imagePreview = document.getElementById('imagePreview');
-        let uploadedImages = [];
+        let urlInputCount = 1;
 
-        imageUpload.addEventListener('change', function(e) {
-            const files = Array.from(e.target.files);
+        function addUrlInput() {
+            const container = document.getElementById('imageUrlsContainer');
+            const newGroup = document.createElement('div');
+            newGroup.className = 'url-input-group';
+            newGroup.innerHTML = `
+                <input type="url" class="image-url-input" placeholder="https://example.com/image.jpg">
+                <button type="button" class="remove-url-btn" onclick="removeUrlInput(${urlInputCount})">×</button>
+            `;
+            newGroup.dataset.index = urlInputCount;
+            container.appendChild(newGroup);
+            urlInputCount++;
+            updatePreview();
+        }
+
+        function removeUrlInput(index) {
+            const groups = document.querySelectorAll('.url-input-group');
+            if (groups.length > 1) {
+                const groupToRemove = Array.from(groups).find(g => g.dataset.index == index);
+                if (groupToRemove) {
+                    groupToRemove.remove();
+                    updatePreview();
+                }
+            } else {
+                groups[0].querySelector('.image-url-input').value = '';
+                updatePreview();
+            }
+        }
+
+        function updatePreview() {
+            const urls = getImageUrls();
+            imagePreview.innerHTML = '';
             
-            files.forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = function(event) {
-                        const imageData = {
-                            name: file.name,
-                            data: event.target.result
-                        };
-                        uploadedImages.push(imageData);
-                        displayImagePreview(imageData, uploadedImages.length - 1);
-                    };
-                    
-                    reader.readAsDataURL(file);
+            urls.forEach((url, index) => {
+                if (url) {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    previewItem.innerHTML = `
+                        <img src="${url}" alt="Image ${index + 1}" onerror="this.parentElement.style.display='none'">
+                    `;
+                    imagePreview.appendChild(previewItem);
                 }
             });
+        }
+
+        function getImageUrls() {
+            const inputs = document.querySelectorAll('.image-url-input');
+            return Array.from(inputs).map(input => input.value.trim()).filter(url => url);
+        }
+
+        // Update preview when URLs change
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('image-url-input')) {
+                updatePreview();
+            }
         });
 
-        function displayImagePreview(imageData, index) {
-            const previewItem = document.createElement('div');
-            previewItem.className = 'preview-item';
-            previewItem.innerHTML = `
-                <img src="${imageData.data}" alt="${imageData.name}">
-                <button type="button" class="preview-remove" onclick="removeImage(${index})">×</button>
-            `;
-            imagePreview.appendChild(previewItem);
-        }
-
-        function removeImage(index) {
-            uploadedImages.splice(index, 1);
-            imagePreview.innerHTML = '';
-            uploadedImages.forEach((img, i) => displayImagePreview(img, i));
-        }
-
-        document.getElementById('ebookForm').addEventListener('submit', async function(e) {
+        document.getElementById('ebookForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const title = document.getElementById('title').value;
@@ -432,7 +497,7 @@
                 filename: filename,
                 price: document.getElementById('price').value,
                 coverTitle: document.getElementById('coverTitle').value,
-                images: uploadedImages,
+                images: getImageUrls(),
                 desc1: desc1,
                 benefit1: {
                     emoji: document.querySelectorAll('.emoji-select')[0].value,
@@ -824,7 +889,7 @@
                 <h3>What You'll Discover</h3>
                 ${data.images && data.images.length > 0 ? `
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                    ${data.images.map(img => `<img src="${img.data}" alt="${data.title}" style="width: 100%; border-radius: 15px; object-fit: cover; height: 200px;">`).join('')}
+                    ${data.images.map(url => `<img src="${url}" alt="${data.title}" style="width: 100%; border-radius: 15px; object-fit: cover; height: 200px;">`).join('')}
                 </div>` : ''}
                 <p>${data.desc1}</p>
             </div>
