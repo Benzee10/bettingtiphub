@@ -354,7 +354,7 @@
                 <label>Image URLs (Optional)</label>
                 <p class="helper-text">Add one or more image URLs for your ebook page</p>
                 <div id="imageUrlsContainer">
-                    <div class="url-input-group">
+                    <div class="url-input-group" data-index="0">
                         <input type="url" class="image-url-input" placeholder="https://example.com/image.jpg">
                         <button type="button" class="remove-url-btn" onclick="removeUrlInput(0)">×</button>
                     </div>
@@ -887,9 +887,8 @@
             </div>
             <div class="ebook-description">
                 <h3>What You'll Discover</h3>
-                ${data.images && data.images.length > 0 ? `
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                    ${data.images.map(url => `<img src="${url}" alt="${data.title}" style="width: 100%; border-radius: 15px; object-fit: cover; height: 200px;">`).join('')}
+                ${data.images && data.images.length > 0 ? `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                    ${data.images.map(url => `<img src="${url}" alt="${data.title}" style="width: 100%; border-radius: 15px; object-fit: cover; height: 200px;" />`).join('')}
                 </div>` : ''}
                 <p>${data.desc1}</p>
             </div>
