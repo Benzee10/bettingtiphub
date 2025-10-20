@@ -87,7 +87,8 @@ Files to update (WhatsApp number only):
 
 ## Recent Changes
 - 2025-10-20: Added smooth animations and dark mode toggle across entire site
-  - Implemented CSS variables for easy theme switching (light/dark modes)
+  - Implemented comprehensive CSS variables system for easy theme switching (light/dark modes)
+  - All hard-coded colors replaced with CSS variables (--pink-primary, --text-primary, --card-bg, etc.)
   - Added fade-in animations that trigger when scrolling to sections
   - Enhanced hover effects on ebook cards with scale and lift animations
   - Added floating/pulsing animation to WhatsApp buttons for attention
@@ -95,6 +96,8 @@ Files to update (WhatsApp number only):
   - Dark mode maintains pink aesthetic with adjusted colors for readability
   - Theme preference saved in localStorage for persistence
   - Dark mode toggle button (🌙/☀️) in top-right corner of all pages
+  - Fixed JavaScript error by adding theme toggle button to all 4 ebook pages
+  - Complete CSS variable system ensures dark mode works perfectly across all pages
   - Applied to: index.html, all 4 ebook pages, _TEMPLATE.html, and create-ebook.html generator
   - Generated ebooks from create-ebook.html now include animations and dark mode by default
 - 2025-10-20: Added detailed MiniPay payment instructions across all ebook pages
