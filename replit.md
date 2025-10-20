@@ -62,8 +62,10 @@ Static HTML landing pages with template system for easy scaling.
 See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` for detailed manual instructions.
 
 ## Important Customization Needed
-Before publishing, update in ALL files:
-1. **WhatsApp Number** - Replace `234XXXXXXXXXX` with your actual WhatsApp number
+**WhatsApp Number:**
+- Current WhatsApp number: +27833299586
+- This is already configured across all files
+- To change it in the future, update it in all ebook pages, template, and generator
 
 **Payment Method:**
 - Payment is handled through MiniPay
@@ -82,6 +84,16 @@ Files to update (WhatsApp number only):
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-20: Added detailed MiniPay payment instructions across all ebook pages
+  - Replaced simple payment section with comprehensive "How to Pay" guide
+  - Added step-by-step MiniPay setup and usage instructions with visual sections
+  - Included MiniPay join link: https://link.minipay.xyz/invite?ref=9yjqAbmi
+  - Added YouTube tutorial link for MiniPay: https://www.youtube.com/watch?v=DWxBXa7Fs4w
+  - Detailed instructions on creating and sending Cash Links
+  - Explained what MiniPay is and how it works
+  - Updated WhatsApp number throughout entire site to +27833299586
+  - Applied changes to: all 4 ebook pages, _TEMPLATE.html, create-ebook.html generator, and index.html
+  - Lucy's flirty, confident tone maintained throughout payment instructions
 - 2025-10-20: Added currency selection feature to ebook creator
   - Users can now select from 10 different currencies (USD, EUR, GBP, NGN, CAD, AUD, ZAR, KES, GHS, INR)
   - Currency symbols automatically display on ebook covers and pricing sections
