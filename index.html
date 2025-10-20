@@ -82,10 +82,11 @@
         .ebook-card {
             background: white;
             border-radius: 20px;
-            padding: 40px 30px;
+            padding: 0;
             text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
+            overflow: hidden;
         }
 
         .ebook-card:hover {
@@ -93,14 +94,45 @@
             box-shadow: 0 15px 50px rgba(255, 107, 157, 0.2);
         }
 
-        .ebook-card h3 {
+        .ebook-cover-mini {
+            background: linear-gradient(135deg, #ff8fab 0%, #ff6b9d 100%);
+            padding: 50px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ebook-cover-mini::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+
+        .ebook-cover-mini h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.8em;
+            color: white;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .ebook-card-content {
+            padding: 30px;
+        }
+
+        .ebook-card-content .price {
+            font-size: 1.5em;
+            font-weight: 700;
             color: #ff6b9d;
             margin-bottom: 15px;
         }
 
-        .ebook-card p {
+        .ebook-card-content p {
             color: #666;
             font-size: 1.05em;
             margin-bottom: 25px;
@@ -204,30 +236,50 @@
         <div class="ebooks-grid">
             <!-- Ebook 1 - Dating Tips for Men -->
             <div class="ebook-card">
-                <h3>Dating Tips for Men</h3>
-                <p>Learn what women really want — from a woman who understands them. Stop getting ghosted and build real attraction.</p>
-                <a href="ebooks/dating-tips-for-men.html" class="btn">View Details</a>
+                <div class="ebook-cover-mini">
+                    <h3>Dating Tips<br>for Men</h3>
+                </div>
+                <div class="ebook-card-content">
+                    <div class="price">$25</div>
+                    <p>Learn what women really want — from a woman who understands them. Stop getting ghosted and build real attraction.</p>
+                    <a href="ebooks/dating-tips-for-men.html" class="btn">View Details</a>
+                </div>
             </div>
 
             <!-- Ebook 2 - Texting Secrets for Men -->
             <div class="ebook-card">
-                <h3>Texting Secrets for Men</h3>
-                <p>Master the art of texting and keep her interested through every message. Stop getting left on read and start getting replies.</p>
-                <a href="ebooks/texting-secrets-for-men.html" class="btn">View Details</a>
+                <div class="ebook-cover-mini">
+                    <h3>Texting Secrets<br>for Men</h3>
+                </div>
+                <div class="ebook-card-content">
+                    <div class="price">$20</div>
+                    <p>Master the art of texting and keep her interested through every message. Stop getting left on read and start getting replies.</p>
+                    <a href="ebooks/texting-secrets-for-men.html" class="btn">View Details</a>
+                </div>
             </div>
 
             <!-- Ebook 3 - First Date Confidence -->
             <div class="ebook-card">
-                <h3>First Date Confidence</h3>
-                <p>Turn nervousness into charm and make an unforgettable first impression. Learn how to turn every first date into a second date.</p>
-                <a href="ebooks/first-date-confidence.html" class="btn">View Details</a>
+                <div class="ebook-cover-mini">
+                    <h3>First Date<br>Confidence</h3>
+                </div>
+                <div class="ebook-card-content">
+                    <div class="price">$18</div>
+                    <p>Turn nervousness into charm and make an unforgettable first impression. Learn how to turn every first date into a second date.</p>
+                    <a href="ebooks/first-date-confidence.html" class="btn">View Details</a>
+                </div>
             </div>
 
             <!-- Ebook 4 - Understanding Women -->
             <div class="ebook-card">
-                <h3>Understanding Women</h3>
-                <p>Decode what she really means and build deeper emotional connections. Finally understand what women want without the guesswork.</p>
-                <a href="ebooks/understanding-women.html" class="btn">View Details</a>
+                <div class="ebook-cover-mini">
+                    <h3>Understanding<br>Women</h3>
+                </div>
+                <div class="ebook-card-content">
+                    <div class="price">$22</div>
+                    <p>Decode what she really means and build deeper emotional connections. Finally understand what women want without the guesswork.</p>
+                    <a href="ebooks/understanding-women.html" class="btn">View Details</a>
+                </div>
             </div>
             
         </div>
