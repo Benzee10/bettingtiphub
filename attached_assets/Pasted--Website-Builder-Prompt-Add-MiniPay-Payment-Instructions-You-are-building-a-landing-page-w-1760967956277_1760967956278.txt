@@ -1,0 +1,82 @@
+🧠 **Website Builder Prompt: Add MiniPay Payment Instructions**
+
+You are building a landing page website for my WhatsApp-based dating brand **Lucy** — a feminine, confident, and slightly flirty persona who sells dating ebooks and private access lists for men.  
+
+---
+
+### 🔹 Task
+Add a detailed **“How to Pay”** section to the website using the payment method below.  
+This section should clearly explain to visitors how to use **MiniPay** to send payments and claim Lucy’s ebook.
+
+---
+
+### 💋 **How to Pay (MiniPay Instructions)**
+
+Hey babe 😘 It’s Lucy — your dating coach and friend.  
+Before we begin, here’s how you can easily get my ebook and start improving your love life today.  
+
+---
+
+#### 💰 Step 1: Join MiniPay  
+Lucy collects payments through **MiniPay**, a fast and secure wallet built by **Opera**.  
+If you don’t have it yet, click below to join 👇  
+👉 [Join MiniPay Here](https://link.minipay.xyz/invite?ref=9yjqAbmi)  
+
+It’s super easy — it only takes a few seconds to set up.  
+
+---
+
+#### 💵 Step 2: Send Your Payment  
+
+Once your MiniPay account is ready, you can send Lucy your payment using **a Cash Link**.  
+Here’s how 👇  
+
+1. Open your **MiniPay app**.  
+2. On the bottom, tap the **“Pay”** button.  
+3. Select **“Sharable Cash Link.”**  
+4. Enter the amount. (If you don’t have funds yet, you’ll need to deposit first.)  
+5. MiniPay will create a unique link for you — copy it.  
+6. Send that link to Lucy on **WhatsApp** so she can confirm and deliver your ebook instantly.  
+
+---
+
+#### 🎥 Step 2.5: Watch the MiniPay Tutorial  
+If you’d like to see exactly how it works, here’s a quick video guide:  
+📺 [Watch How to Use MiniPay](https://www.youtube.com/watch?v=DWxBXa7Fs4w)
+
+---
+
+#### 💡 What is MiniPay?  
+Opera recently launched **MiniPay**, a new stablecoin wallet built on blockchain.  
+It’s safe, fast, and works even if the other person doesn’t have MiniPay yet.  
+
+> To send money with MiniPay, generate a Cash Link in the app, share it with the recipient, and they can claim the funds instantly in their MiniPay wallet by clicking the link.  
+> Alternatively, if the recipient also has a MiniPay account and phone number, you can send money directly to them using their phone number for a quick and simple transfer.  
+
+---
+
+#### 💬 Step 3: Message Lucy on WhatsApp  
+Once you’ve sent the Cash Link, message Lucy:  
+> “Hi Lucy, I’ve paid for the ebook ❤️”  
+
+Then she’ll confirm and send your copy immediately.  
+
+👉 [Message Lucy on WhatsApp](https://wa.me/27833299586?text=Hi+Lucy,+I+just+paid+for+your+ebook!)
+
+---
+
+### ❤️ Lucy’s Promise  
+Lucy wants you to win in love and confidence.  
+Start reading today — this ebook is your first step to understanding what women really want.
+
+---
+
+### 🪄 **Final Instruction for AI Website Builder**
+- Place this “How to Pay” section *after* the main product/ebook description.  
+- Format it beautifully with sections, emojis, and headers.  
+- Keep Lucy’s feminine, confident tone throughout.  
+- Add subtle flirty language but avoid explicit content.  
+- Include:
+  - The working MiniPay join link  
+  - The YouTube tutorial link  
+  - Lucy’s WhatsApp chat button (linked to +27833299586)  
