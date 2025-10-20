@@ -211,6 +211,74 @@
         .back-link:hover {
             text-decoration: underline;
         }
+
+        .image-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .image-option {
+            position: relative;
+            border: 3px solid transparent;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-option:hover {
+            border-color: #ff6b9d;
+            transform: scale(1.05);
+        }
+
+        .image-option.selected {
+            border-color: #ff6b9d;
+            box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.2);
+        }
+
+        .image-option img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-option-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 107, 157, 0.9);
+            color: white;
+            padding: 5px;
+            font-size: 0.75em;
+            text-align: center;
+        }
+
+        .custom-url-toggle {
+            background: #ffe8f0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .custom-url-toggle:hover {
+            background: #ffd4e5;
+        }
+
+        .custom-url-input {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .custom-url-input.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -246,9 +314,40 @@
             </div>
 
             <div class="form-group">
-                <label>Image URL</label>
-                <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg">
-                <p class="helper-text">Optional: Add a link to an image for your ebook</p>
+                <label>Choose Image (Optional)</label>
+                <p class="helper-text">Select a suggested image or use your own URL</p>
+                <div class="image-options">
+                    <div class="image-option" data-url="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=400&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=400&fit=crop" alt="Heart hands">
+                        <div class="image-option-label">Love</div>
+                    </div>
+                    <div class="image-option" data-url="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=600&h=400&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=600&h=400&fit=crop" alt="Couple">
+                        <div class="image-option-label">Couple</div>
+                    </div>
+                    <div class="image-option" data-url="https://images.unsplash.com/photo-1522556189639-b150ed9c4330?w=600&h=400&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1522556189639-b150ed9c4330?w=600&h=400&fit=crop" alt="Man">
+                        <div class="image-option-label">Man</div>
+                    </div>
+                    <div class="image-option" data-url="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=400&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=400&fit=crop" alt="Woman">
+                        <div class="image-option-label">Woman</div>
+                    </div>
+                    <div class="image-option" data-url="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=400&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&h=400&fit=crop" alt="Rose">
+                        <div class="image-option-label">Rose</div>
+                    </div>
+                    <div class="image-option" data-url="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=600&h=400&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=600&h=400&fit=crop" alt="Date">
+                        <div class="image-option-label">Date</div>
+                    </div>
+                </div>
+                <div class="custom-url-toggle" id="customUrlToggle">
+                    📎 Or use your own image URL
+                </div>
+                <div class="custom-url-input" id="customUrlInput">
+                    <input type="text" id="imageUrl" placeholder="Paste your image URL here">
+                </div>
             </div>
 
             <div class="form-group">
@@ -306,6 +405,35 @@
     </div>
 
     <script>
+        // Handle image option selection
+        const imageOptions = document.querySelectorAll('.image-option');
+        const imageUrlInput = document.getElementById('imageUrl');
+        const customUrlToggle = document.getElementById('customUrlToggle');
+        const customUrlInput = document.getElementById('customUrlInput');
+
+        imageOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                imageOptions.forEach(opt => opt.classList.remove('selected'));
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                // Set the image URL
+                imageUrlInput.value = this.getAttribute('data-url');
+                // Hide custom URL input if shown
+                customUrlInput.classList.remove('show');
+            });
+        });
+
+        // Handle custom URL toggle
+        customUrlToggle.addEventListener('click', function() {
+            customUrlInput.classList.toggle('show');
+            if (customUrlInput.classList.contains('show')) {
+                // Remove selection from image options
+                imageOptions.forEach(opt => opt.classList.remove('selected'));
+                imageUrlInput.focus();
+            }
+        });
+
         document.getElementById('ebookForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
