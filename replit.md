@@ -18,6 +18,12 @@ Static HTML landing pages with template system for easy scaling.
 ├── index.html                          # Homepage listing all ebooks
 ├── create-ebook.html                   # Ebook generator tool
 ├── server.py                           # Python HTTP server
+├── cards/                              # Homepage card files (auto-loaded)
+│   ├── dating-tips-for-men.html       # Card for Dating Tips ebook
+│   ├── first-date-confidence.html     # Card for First Date Confidence ebook
+│   ├── texting-secrets-for-men.html   # Card for Texting Secrets ebook
+│   ├── understanding-women.html       # Card for Understanding Women ebook
+│   └── README.txt                     # Instructions for adding new cards
 ├── ebooks/
 │   ├── dating-tips-for-men.html       # Ebook 1 - Dating Tips ($25)
 │   ├── texting-secrets-for-men.html   # Ebook 2 - Texting Secrets ($20)
@@ -28,9 +34,10 @@ Static HTML landing pages with template system for easy scaling.
 ```
 
 ## Key Features
-- **Homepage**: Displays all ebooks in a grid with cards
+- **Homepage**: Displays all ebooks in a grid with cards (dynamically loaded from cards/ folder)
 - **Individual Ebook Pages**: Each ebook has its own URL for targeted sharing
 - **Template System**: Easy duplication and customization
+- **Modular Card System**: Homepage cards stored as separate files for easy management
 - **Responsive Design**: Mobile-first approach
 - **Elegant Aesthetics**: Soft pink/blush color scheme with professional typography
 - **WhatsApp Integration**: Direct call-to-action buttons for customer contact
@@ -50,18 +57,22 @@ Static HTML landing pages with template system for easy scaling.
 1. Visit `/create-ebook.html` in the browser
 2. Fill out the form with ebook details (title, price, description, benefits, etc.)
 3. Click "Generate Ebook Files"
-4. Download the generated HTML file
-5. Save it in `ebooks/` folder
-6. Copy and paste the homepage card code into `index.html`
-7. Done! No coding needed!
+4. Download the ebook page HTML file and save it in `ebooks/` folder
+5. Download the homepage card HTML file and save it in `cards/` folder
+6. Done! The new ebook automatically appears on the homepage - no coding needed!
+
+**How it works:**
+- The homepage (`index.html`) automatically loads all card files from the `cards/` folder
+- When you add a new card file to the folder, it instantly appears on the homepage
+- No need to manually edit `index.html` anymore!
 
 ### Manual Method: Template System
 1. Copy `ebooks/_TEMPLATE.html`
 2. Rename and customize
-3. Add a card to homepage
-4. Share the unique URL
+3. Create a card file in `cards/` folder (copy format from existing cards)
+4. The new ebook will automatically appear on the homepage
 
-See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` for detailed manual instructions.
+See `ebooks/HOW-TO-ADD-NEW-EBOOK.txt` and `cards/README.txt` for detailed manual instructions.
 
 ## Important Customization Needed
 **WhatsApp Number:**
@@ -86,6 +97,19 @@ Files to update (WhatsApp number only):
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-21: Reorganized homepage cards into modular cards/ folder system
+  - Created new `cards/` folder to store individual homepage card HTML files
+  - Moved all 4 ebook cards from index.html into separate files in cards/ folder
+  - Added /api/cards endpoint to server.py that dynamically lists all card files
+  - Updated index.html to fetch card list from /api/cards and load dynamically
+  - Cards are automatically discovered and loaded on page load with animations
+  - Updated create-ebook.html generator to download card files for the cards/ folder
+  - Generator now provides two downloads: ebook page + homepage card file
+  - Added comprehensive README.txt in cards/ folder with instructions
+  - Card display order is controlled by filename (alphabetical sorting)
+  - Benefits: Much easier to add/remove ebooks without editing index.html
+  - System is now truly modular - just drop a card file in cards/ folder and it appears!
+  - Tested and verified: Adding new card files automatically makes them appear on homepage
 - 2025-10-21: Successfully imported and configured for Replit environment
   - Installed Python 3.11 runtime
   - Configured workflow to run server on port 5000 with host 0.0.0.0

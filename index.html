@@ -15,6 +15,7 @@
             --text-secondary: #555;
             --text-light: #666;
             --card-bg: white;
+            --benefit-bg: linear-gradient(135deg, #fff5f7 0%, #ffeef8 100%);
             --pink-primary: #ff6b9d;
             --pink-secondary: #ffc2d4;
             --shadow-light: rgba(0,0,0,0.08);
@@ -28,6 +29,7 @@
             --text-secondary: #d0d0d0;
             --text-light: #b0b0b0;
             --card-bg: #2a1a24;
+            --benefit-bg: linear-gradient(135deg, #3a2a34 0%, #4a2a3f 100%);
             --pink-primary: #ff8fab;
             --pink-secondary: #ffc2d4;
             --shadow-light: rgba(255,255,255,0.05);
@@ -691,58 +693,7 @@
         </div>
 
         <div class="ebooks-grid" id="ebooksGrid">
-            <!-- Ebook 1 - Dating Tips for Men -->
-            <div class="ebook-card">
-                <div class="ebook-cover-mini">
-                    <h3>Dating Tips<br>for Men</h3>
-                </div>
-                <div class="ebook-card-content">
-                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=400&fit=crop" alt="Dating Tips for Men" class="ebook-image">
-                    <div class="price">$25</div>
-                    <p>Learn what women really want — from a woman who understands them. Stop getting ghosted and build real attraction.</p>
-                    <a href="ebooks/dating-tips-for-men.html" class="btn">View Details</a>
-                </div>
-            </div>
-
-            <!-- Ebook 2 - Texting Secrets for Men -->
-            <div class="ebook-card">
-                <div class="ebook-cover-mini">
-                    <h3>Texting Secrets<br>for Men</h3>
-                </div>
-                <div class="ebook-card-content">
-                    <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&h=400&fit=crop" alt="Texting Secrets for Men" class="ebook-image">
-                    <div class="price">$20</div>
-                    <p>Master the art of texting and keep her interested through every message. Stop getting left on read and start getting replies.</p>
-                    <a href="ebooks/texting-secrets-for-men.html" class="btn">View Details</a>
-                </div>
-            </div>
-
-            <!-- Ebook 3 - First Date Confidence -->
-            <div class="ebook-card">
-                <div class="ebook-cover-mini">
-                    <h3>First Date<br>Confidence</h3>
-                </div>
-                <div class="ebook-card-content">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=400&fit=crop" alt="First Date Confidence" class="ebook-image">
-                    <div class="price">$18</div>
-                    <p>Turn nervousness into charm and make an unforgettable first impression. Learn how to turn every first date into a second date.</p>
-                    <a href="ebooks/first-date-confidence.html" class="btn">View Details</a>
-                </div>
-            </div>
-
-            <!-- Ebook 4 - Understanding Women -->
-            <div class="ebook-card">
-                <div class="ebook-cover-mini">
-                    <h3>Understanding<br>Women</h3>
-                </div>
-                <div class="ebook-card-content">
-                    <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=600&h=400&fit=crop" alt="Understanding Women" class="ebook-image">
-                    <div class="price">$22</div>
-                    <p>Decode what she really means and build deeper emotional connections. Finally understand what women want without the guesswork.</p>
-                    <a href="ebooks/understanding-women.html" class="btn">View Details</a>
-                </div>
-            </div>
-            
+            <!-- Cards are loaded dynamically from the cards/ folder -->
         </div>
 
         <div class="whatsapp-section">
@@ -783,6 +734,41 @@
             }
         });
 
+        // Load Ebook Cards Dynamically from cards/ folder
+        async function loadEbookCards() {
+            const ebooksGrid = document.getElementById('ebooksGrid');
+
+            try {
+                // Fetch the list of card files from the server API
+                const listResponse = await fetch('/api/cards');
+                if (!listResponse.ok) {
+                    console.error('Failed to fetch card list');
+                    return;
+                }
+                
+                const cardFiles = await listResponse.json();
+                
+                // Load each card file
+                for (const cardFile of cardFiles) {
+                    const response = await fetch(`cards/${cardFile}`);
+                    if (response.ok) {
+                        const cardHTML = await response.text();
+                        ebooksGrid.innerHTML += cardHTML;
+                    }
+                }
+                
+                // After all cards are loaded, observe them for animations
+                const ebookCards = document.querySelectorAll('.ebook-card');
+                ebookCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        observer.observe(card);
+                    }, index * 50);
+                });
+            } catch (error) {
+                console.error('Error loading ebook cards:', error);
+            }
+        }
+
         // Scroll Animation for Ebook Cards
         const observerOptions = {
             threshold: 0.1,
@@ -800,11 +786,8 @@
             });
         }, observerOptions);
 
-        // Observe all ebook cards
-        const ebookCards = document.querySelectorAll('.ebook-card');
-        ebookCards.forEach(card => {
-            observer.observe(card);
-        });
+        // Load ebook cards on page load
+        loadEbookCards();
 
         // Observe stats section
         const statItems = document.querySelectorAll('.stat-item');

@@ -496,20 +496,16 @@
             <div class="instructions">
                 <h4>📋 What to do next:</h4>
                 <ol>
-                    <li>Click "Download Ebook Page" below to save the HTML file</li>
+                    <li>Click "Download Ebook Page" below to save the ebook HTML file</li>
                     <li>Save it in the <code>ebooks/</code> folder</li>
-                    <li>Copy the "Homepage Card Code" and paste it in <code>index.html</code> where it says "Add more ebook cards here"</li>
-                    <li>That's it! Your new ebook is live!</li>
+                    <li>Click "Download Homepage Card" to save the card HTML file</li>
+                    <li>Save it in the <code>cards/</code> folder</li>
+                    <li>That's it! Your new ebook will automatically appear on the homepage!</li>
                 </ol>
             </div>
 
             <button class="download-btn" id="downloadBtn">📥 Download Ebook Page</button>
-            <button class="copy-btn" id="copyCardBtn">📋 Copy Homepage Card Code</button>
-
-            <div style="margin-top: 30px;">
-                <h4 style="color: var(--pink-primary); margin-bottom: 10px;">Homepage Card Code:</h4>
-                <textarea id="cardCode" readonly style="width: 100%; min-height: 150px; font-family: monospace; font-size: 0.9em;"></textarea>
-            </div>
+            <button class="download-btn" id="downloadCardBtn" style="margin-top: 15px;">📥 Download Homepage Card</button>
         </div>
     </div>
 
@@ -670,9 +666,8 @@
             
             // Show result section
             document.getElementById('result').classList.add('show');
-            document.getElementById('cardCode').value = cardCode;
             
-            // Setup download button
+            // Setup download ebook page button
             document.getElementById('downloadBtn').onclick = function() {
                 const blob = new Blob([htmlContent], { type: 'text/html' });
                 const url = URL.createObjectURL(blob);
@@ -680,13 +675,19 @@
                 a.href = url;
                 a.download = formData.filename + '.html';
                 a.click();
+                URL.revokeObjectURL(url);
             };
             
-            // Setup copy button
-            document.getElementById('copyCardBtn').onclick = function() {
-                document.getElementById('cardCode').select();
-                document.execCommand('copy');
-                alert('✅ Card code copied! Paste it in index.html');
+            // Setup download card button
+            document.getElementById('downloadCardBtn').onclick = function() {
+                const blob = new Blob([cardCode], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = formData.filename + '.html';
+                a.click();
+                URL.revokeObjectURL(url);
+                alert('✅ Card downloaded! Save it in the cards/ folder and it will automatically appear on the homepage.');
             };
 
             // Scroll to result
