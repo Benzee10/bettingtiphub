@@ -77,10 +77,34 @@ Each ebook has its own unique URL:
 
 ## Publishing
 
+### Publishing to Replit
 1. Update WhatsApp number and payment details in all files
 2. Test all pages locally
 3. Click "Deploy" button in Replit
 4. Share your links on social media, WhatsApp status, etc.
+
+### Publishing to Vercel / Netlify / GitHub Pages
+This site works perfectly on static hosting platforms! The code has been optimized to work without a backend server.
+
+**Deployment Steps:**
+1. Push your code to GitHub
+2. Connect your repository to Vercel/Netlify
+3. Deploy (no build configuration needed!)
+4. Your site will be live instantly
+
+**Important: When adding new ebooks on Vercel/Netlify:**
+1. Create your new ebook card HTML file in the `cards/` folder
+2. **Update the card list in `index.html`** (around line 746):
+   ```javascript
+   const cardFiles = [
+       'dating-tips-for-men.html',
+       'first-date-confidence.html',
+       'texting-secrets-for-men.html',
+       'understanding-women.html',
+       'your-new-ebook.html'  // Add your new card file here
+   ];
+   ```
+3. Commit and push - your new ebook will appear automatically!
 
 ## Tips
 

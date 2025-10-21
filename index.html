@@ -734,20 +734,20 @@
             }
         });
 
-        // Load Ebook Cards Dynamically from cards/ folder
+        // Load Ebook Cards from cards/ folder
+        // For static deployment (Vercel, Netlify, GitHub Pages), we list card files here
         async function loadEbookCards() {
             const ebooksGrid = document.getElementById('ebooksGrid');
 
+            // List of card files (update this list when adding new ebooks)
+            const cardFiles = [
+                'dating-tips-for-men.html',
+                'first-date-confidence.html',
+                'texting-secrets-for-men.html',
+                'understanding-women.html'
+            ];
+
             try {
-                // Fetch the list of card files from the server API
-                const listResponse = await fetch('/api/cards');
-                if (!listResponse.ok) {
-                    console.error('Failed to fetch card list');
-                    return;
-                }
-                
-                const cardFiles = await listResponse.json();
-                
                 // Load each card file
                 for (const cardFile of cardFiles) {
                     const response = await fetch(`cards/${cardFile}`);

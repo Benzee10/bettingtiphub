@@ -97,6 +97,14 @@ Files to update (WhatsApp number only):
 - Any new ebook pages created
 
 ## Recent Changes
+- 2025-10-21: Fixed for Vercel/Netlify/GitHub Pages deployment (static hosting compatibility)
+  - Modified index.html to use a static list of card files instead of /api/cards endpoint
+  - Site now works perfectly on static hosting platforms without Python server
+  - Card files list is defined in JavaScript (lines 746-751 in index.html)
+  - When adding new ebooks on static hosts, users must update the cardFiles array
+  - Both dynamic (Replit) and static (Vercel/Netlify) deployment methods now supported
+  - Updated README.md with detailed Vercel deployment instructions
+  - No functionality lost - all features work identically on both platforms
 - 2025-10-21: Reorganized homepage cards into modular cards/ folder system
   - Created new `cards/` folder to store individual homepage card HTML files
   - Moved all 4 ebook cards from index.html into separate files in cards/ folder
