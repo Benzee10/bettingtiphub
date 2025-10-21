@@ -1,0 +1,11 @@
+            <div class="ebook-card">
+                <div class="ebook-cover-mini">
+                    <h3>BUY NOW</h3>
+                </div>
+                <div class="ebook-card-content">
+                    <img src="https://www.exoticnigeria.com/wp-content/uploads/1759860717254/17598607396175.jpg" alt="Amelie" class="ebook-image">
+                    <div class="price">₦1,000</div>
+                    <p>Soft lips, naughty mind. I turn simple moments into unforgettable pleasure.</p>
+                    <a href="ebooks/amelie.html" class="btn">View Details</a>
+                </div>
+            </div>
