@@ -1089,9 +1089,7 @@
             </div>
             <div class="ebook-description">
                 <h3>What You'll Discover</h3>
-                ${data.images && data.images.length > 0 ? `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                    ${data.images.map(url => `<img src="${url}" alt="${data.title}" style="width: 100%; border-radius: 15px; object-fit: cover; height: 200px;" />`).join('')}
-                </div>` : ''}
+                ${data.images && data.images.length > 0 ? '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">' + data.images.map(url => '<img src="' + url + '" alt="' + data.title + '" style="width: 100%; border-radius: 15px; object-fit: cover; height: 200px;" />').join('') + '</div>' : ''}
                 <p>${data.desc1}</p>
             </div>
         </section>
@@ -1163,45 +1161,45 @@ ${benefitsHtml}            </div>
     </footer>
 
     <script>
-        const themeToggle = document.getElementById(\'themeToggle\');
+        const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
-        const currentTheme = localStorage.getItem(\'theme\') || \'light\';
-        if (currentTheme === \'dark\') {
-            body.setAttribute(\'data-theme\', \'dark\');
-            themeToggle.textContent = \'☀️\';
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
         }
         
-        themeToggle.addEventListener(\'click\', () => {
-            const theme = body.getAttribute(\'data-theme\');
-            if (theme === \'dark\') {
-                body.removeAttribute(\'data-theme\');
-                themeToggle.textContent = \'🌙\';
-                localStorage.setItem(\'theme\', \'light\');
+        themeToggle.addEventListener('click', () => {
+            const theme = body.getAttribute('data-theme');
+            if (theme === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
             } else {
-                body.setAttribute(\'data-theme\', \'dark\');
-                themeToggle.textContent = \'☀️\';
-                localStorage.setItem(\'theme\', \'dark\');
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
             }
         });
 
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: \'0px 0px -50px 0px\'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
-                        entry.target.classList.add(\'fade-in-up\');
+                        entry.target.classList.add('fade-in-up');
                     }, index * 100);
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        const sections = document.querySelectorAll(\'.ebook-section, .benefits-grid, .images-section, .payment-section, .purchase-section\');
+        const sections = document.querySelectorAll('.ebook-section, .benefits-grid, .images-section, .payment-section, .purchase-section');
         sections.forEach(section => {
             observer.observe(section);
         });
